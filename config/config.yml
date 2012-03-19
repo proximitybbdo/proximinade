@@ -2,8 +2,8 @@
 # Proximity devphp framework config
 # ============================================================================ #
 admin:
-  login: admin
-  password: ddt4ever
+  login: 
+  password: 
 
 # ============================================================================ #
 # Database settings
