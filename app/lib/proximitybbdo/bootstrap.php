@@ -1,8 +1,5 @@
 <?php
 
-// Start session
-session_start();
-
 // Set include path to include **app/lib** directory
 $root_directory = dirname(__FILE__) . '/../../../';
 $app_directory = $root_directory . 'app/';
@@ -89,5 +86,8 @@ function configure() {
   option('views_dir', $app_directory . 'views');
   option('controllers_dir', $app_directory . 'controllers');
 }
+
+// Start session
+session_start();
 
 run();
