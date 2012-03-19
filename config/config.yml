@@ -15,6 +15,20 @@ db:
   user: user_name
   password: password
 
+db_STAGING:
+  adapter: mysqli
+  host: localhost
+  db: database
+  user: user_name
+  password: password
+
+db_PRODUCTION:
+  adapter: mysqli
+  host: localhost
+  db: database
+  user: user_name
+  password: password
+
 # ============================================================================ #
 # Multilang options
 # ============================================================================ #

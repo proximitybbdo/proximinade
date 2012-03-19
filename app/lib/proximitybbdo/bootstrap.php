@@ -40,6 +40,12 @@ require_once('bootstrap.php');
 require_once('helpers.php');
 require_once('routes.php');
 
+// Models if exists
+if(file_exists($app_directory . 'models/')) {
+  foreach (glob($app_directory . 'models/*.php') as $filename)
+    require_once($filename);
+}
+
 function get_env() {
   global $root_directory;
   
