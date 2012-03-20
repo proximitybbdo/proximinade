@@ -1,8 +1,19 @@
 <?php
 
-// This default helper sets some interesting default values.
-// ``base_path`` can be used to generate a url that points to the root of the site.
-// ``lang`` will give your the language based on an optional language url (eg. /nl-BE/...)
+/**
+ * Proximity Multilang lib222222222
+ *
+ * Handles translation through xml files
+ * 
+ * @package proximitybbdo
+ */
+
+/**
+ * This default helper sets some interesting default values.
+ * ``base_path`` can be used to generate a url that points to the root of the site.
+ * ``lang`` will give your the language based on an optional language url (eg. /nl-BE/...)
+ */
+
 function before($route) {
   set('base_path', BASE_PATH);
 

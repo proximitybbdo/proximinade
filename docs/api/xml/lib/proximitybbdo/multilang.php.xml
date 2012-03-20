@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file xmlns="http://xml.phpdox.de/src#">
+  <head path="../../app/lib/proximitybbdo" file="multilang.php" realpath="/Volumes/data/Users/jeroenb/Projects/proximinade/app/lib/proximitybbdo/multilang.php" size="5986" time="2012-03-20T10:37:13+01:00" unixtime="1332236233" sha1="1999fe6b4e4dcc084ebb39b4c6f84a737b5ed81b"/>
+  <class full="Multilang" name="Multilang" final="false" abstract="false" start="13" end="180">
+    <docblock>
+      <description compact="Proximity Multilang lib">Handles translation through xml files
+
+v0.05</description>
+      <package value="proximitybbdo"/>
+    </docblock>
+    <member name="instance" static="true" visibility="private">
+      <default>null</default>
+    </member>
+    <member name="lang" static="false" visibility="private">
+      <default>''</default>
+    </member>
+    <member name="langs" static="false" visibility="public">
+      <default>array (
+)</default>
+    </member>
+    <member name="inited" static="false" visibility="private">
+      <default>false</default>
+    </member>
+    <constructor name="__construct" start="21" end="23" abstract="false" final="false" static="false" visibility="private"/>
+    <method name="__clone" start="25" end="27" abstract="false" final="false" static="false" visibility="public"/>
+    <method name="__wakeup" start="28" end="30" abstract="false" final="false" static="false" visibility="public"/>
+    <method name="getInstance" start="35" end="40" abstract="false" final="false" static="true" visibility="public">
+      <docblock>
+        <description compact="Returns an instance of Multilan"/>
+      </docblock>
+    </method>
+    <method name="iso_lang" start="42" end="52" abstract="false" final="false" static="false" visibility="public">
+      <parameter name="lang" type="{unknown}" optional="false" byreference="false"/>
+    </method>
+    <method name="set_time_locale" start="57" end="69" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact=""/>
+      </docblock>
+    </method>
+    <method name="init" start="74" end="90" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Parse the language files and set the default lang"/>
+      </docblock>
+    </method>
+    <method name="destroy" start="95" end="98" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Destroy the language array and any other variables"/>
+      </docblock>
+    </method>
+    <method name="setLang" start="104" end="107" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Change the default language multilang translates against"/>
+        <param description="the new language" type="string" variable="$lang"/>
+      </docblock>
+      <parameter name="lang" type="{unknown}" optional="false" byreference="false"/>
+    </method>
+    <method name="getLang" start="113" end="115" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Return the current language"/>
+        <return type="string"/>
+      </docblock>
+    </method>
+    <method name="defaultLang" start="120" end="122" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Switch back to the default language"/>
+      </docblock>
+    </method>
+    <method name="_t" start="132" end="136" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Main function of this class, gets the responding string for a given key, in the current language. Change the language by using lang()"/>
+        <param description="the key of the translated string" type="string" variable="$key"/>
+        <param description="(optional) lang key" type="string" variable="$lang"/>
+        <return type="string"/>
+      </docblock>
+      <parameter name="key" type="{unknown}" optional="false" byreference="false"/>
+      <parameter name="lang" type="{unknown}" optional="true" byreference="false">
+        <default>''</default>
+      </parameter>
+    </method>
+    <method name="_d" start="148" end="159" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Main function of this class, gets the responding string for a given key, in the current language. Change the language by using lang()"/>
+        <param description="the key of the translated string" type="string" variable="$key"/>
+        <param description="a regular expression update dynamic values" type="string" variable="$regexp"/>
+        <param description="the params to replace the the regexp matches" type="string" variable="$params"/>
+        <return type="string"/>
+      </docblock>
+      <parameter name="key" type="{unknown}" optional="false" byreference="false"/>
+      <parameter name="regexp" type="{unknown}" optional="false" byreference="false"/>
+      <parameter name="params" type="{unknown}" optional="false" byreference="false"/>
+    </method>
+    <method name="langs_as_regexp" start="164" end="171" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Get all languages formatted for multi-select regular expression ``nl|fr|en|...``"/>
+      </docblock>
+    </method>
+    <method name="get_lang_count" start="177" end="179" abstract="false" final="false" static="false" visibility="public">
+      <docblock>
+        <description compact="Get count of languages available"/>
+        <return type="int"/>
+      </docblock>
+    </method>
+  </class>
+  <class full="MultiLangKey" name="MultiLangKey" final="false" abstract="false" start="182" end="204">
+    <extends class="ArrayObject" full="ArrayObject"/>
+    <member name="_data" static="false" visibility="public">
+      <default>array (
+)</default>
+    </member>
+    <constructor name="__construct" start="185" end="190" abstract="false" final="false" static="false" visibility="public">
+      <parameter name="data" type="{unknown}" optional="false" byreference="false"/>
+    </constructor>
+    <method name="__call" start="192" end="195" abstract="false" final="false" static="false" visibility="public">
+      <parameter name="name" type="{unknown}" optional="false" byreference="false"/>
+      <parameter name="arguments" type="array" optional="false" byreference="false"/>
+    </method>
+    <method name="__t" start="197" end="199" abstract="false" final="false" static="false" visibility="private">
+      <parameter name="key" type="{unknown}" optional="false" byreference="false"/>
+    </method>
+    <method name="__toString" start="201" end="203" abstract="false" final="false" static="false" visibility="public"/>
+  </class>
+</file>
