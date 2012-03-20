@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file xmlns="http://xml.phpdox.de/src#">
+  <head path="../../app/lib/proximitybbdo" file="apploader.php" realpath="/Volumes/data/Users/jeroenb/Projects/proximinade/app/lib/proximitybbdo/apploader.php" size="1326" time="2012-03-20T10:37:13+01:00" unixtime="1332236233" sha1="f9f9a8cabd16d613e171fae86d8bcc4a3f23e1af"/>
+  <class full="ProximityApp" name="ProximityApp" final="false" abstract="false" start="19" end="37">
+    <docblock>
+      <description compact="Proximity Apploader">Class with helper functions for a basic application
+
+v0.01</description>
+      <package value="proximitybbdo"/>
+    </docblock>
+    <member name="settings" static="true" visibility="public">
+      <default>array (
+)</default>
+    </member>
+    <member name="settings_file" static="true" visibility="public">
+      <default>'config.yml'</default>
+    </member>
+    <method name="load_settings" start="24" end="26" abstract="false" final="false" static="true" visibility="private">
+      <parameter name="settings_file" type="{unknown}" optional="false" byreference="false"/>
+    </method>
+    <method name="init" start="30" end="36" abstract="false" final="false" static="true" visibility="public">
+      <parameter name="config_directory" type="{unknown}" optional="false" byreference="false"/>
+      <parameter name="param_settings_file" type="{unknown}" optional="true" byreference="false">
+        <default>''</default>
+      </parameter>
+    </method>
+  </class>
+</file>
