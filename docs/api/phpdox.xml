@@ -4,10 +4,7 @@
 
   <project name="proximinade" source="../../app/lib" workdir="xml">
     <collector publiconly="false">
-      <include mask="*lib/proximitybbdo/*.php" />
-      <include mask="*lib/limonade/*.php" />
-      <include mask="*config/*.php" />
-      <exclude mask="*lib/Zend*" />
+      <include mask="*proximitybbdo/*.php" />
     </collector>
 
     <!--  Configuration of generation process -->
