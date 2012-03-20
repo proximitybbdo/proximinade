@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<phpdox xmlns="http://phpdox.de/config" silent="false">
+  <bootstrap />
+
+  <project name="proximinade" source="../../app/lib" workdir="xml">
+    <collector publiconly="false">
+      <include mask="*lib/proximitybbdo/*.php" />
+      <include mask="*lib/limonade/*.php" />
+      <include mask="*config/*.php" />
+      <exclude mask="*lib/Zend*" />
+    </collector>
+
+    <!--  Configuration of generation process -->
+    <generator output="">
+      <build engine="html" enabled="true" output="html" />
+
+      <build engine="todo" enabled="true" output="todo">
+        <file name="todolist.txt" encoding="utf-8" />
+      </build>
+    </generator>
+  </project>
+</phpdox>
