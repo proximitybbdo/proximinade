@@ -57,7 +57,7 @@ class Exporter
 {
   private $path_prefix_base = './';
   private $export_dir = 'export';
-  private $ignore_dirs = array('assets', 'data', 'export');
+  private $ignore_dirs = array('assets', 'locales', 'export');
   private $export_base = '';
 
   function __construct($export_base) {

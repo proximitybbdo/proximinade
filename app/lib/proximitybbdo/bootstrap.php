@@ -85,6 +85,9 @@ function configure() {
 
   option('views_dir', $app_directory . 'views');
   option('controllers_dir', $app_directory . 'controllers');
+
+  // default layout for rendering
+  layout('layout.html.php');
 }
 
 // Start session
