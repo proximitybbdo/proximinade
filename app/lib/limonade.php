@@ -5,7 +5,7 @@
 /**
  *  L I M O N A D E
  * 
-a*  a PHP micro framework.
+ *  a PHP micro framework.
  * 
  *  For more informations: {@link http://github/sofadesign/limonade}
  *  
