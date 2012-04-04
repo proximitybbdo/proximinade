@@ -33,3 +33,6 @@ function config() {
 
   // Extra config
 }
+
+function config_post() {
+}

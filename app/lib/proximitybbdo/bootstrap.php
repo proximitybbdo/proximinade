@@ -86,8 +86,14 @@ function configure() {
   option('views_dir', $app_directory . 'views');
   option('controllers_dir', $app_directory . 'controllers');
 
+  foreach (glob($app_directory . 'models/*.php') as $filename)
+    require_once($filename);
+
   // default layout for rendering
   layout('layout.html.php');
+
+  if(function_exists('config_post'))
+    config_post();
 }
 
 // Start session
