@@ -147,8 +147,6 @@ class Multilang
    */
   public function _d($key, $regexp, $params) {
     if(isset($regexp)) {
-      $matches = array();
-
       $value = $this->langs[$this->lang][$key];
       $value = preg_replace($regexp, $params, $value);
 
@@ -192,9 +190,22 @@ class MultiLangKey extends ArrayObject {
   public function __call($name, array $arguments) {
     if($name == '_t' || $name == 't')
       return call_user_func_array(array($this, '__t'), $arguments);
+    else if($name == '_d' || $name == 'd')
+      return call_user_func_array(array($this, '__d'), $arguments);
   }
 
   private function __t($key) {
+    return new MultiLangKey($this->_data[$key]);
+  }
+
+  private function __d($key, $regexp, $params) {
+    if(isset($regexp)) {
+      $value = $this->_data[$key];
+      $value = preg_replace($regexp, $params, $value);
+
+      return $value;
+    }
+
     return new MultiLangKey($this->_data[$key]);
   }
 
