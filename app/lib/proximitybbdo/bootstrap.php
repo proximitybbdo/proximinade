@@ -7,6 +7,7 @@ $lib_directory = $app_directory . 'lib/';
 $config_directory = $root_directory . 'config/';
 
 set_include_path(get_include_path() . PATH_SEPARATOR . $lib_directory);
+set_include_path(get_include_path() . PATH_SEPARATOR . $app);
 set_include_path(get_include_path() . PATH_SEPARATOR . $config_directory);
 
 // [Limonade PHP](https://github.com/sofadesign/limonade/): the basis of this framework.
@@ -37,12 +38,6 @@ require_once('bootstrap.php');
 require_once('helpers.php');
 require_once('routes.php');
 
-// Models if exists
-if(file_exists($app_directory . 'models/')) {
-  foreach (glob($app_directory . 'models/*.php') as $filename)
-    require_once($filename);
-}
-
 function get_env() {
   global $root_directory;
   
@@ -59,6 +54,21 @@ function get_env() {
   }
 
   return $env;
+}
+
+// sets the correct error reporting
+// depending on the environment (DEV / STAGING /  PRODUCTION)
+function set_error_reporting() {
+  if(get_env() === 'DEVELOPMENT') {
+    // Error reporting: report everything
+    error_reporting(E_ALL);
+  } else {
+    // Error reporting: report nothing, only fatal errors.
+    error_reporting(E_ALL & ~E_STRICT & ~E_WARNING & ~E_NOTICE & ~E_DEPRECATED);
+  }
+
+  // Display the errors when they occur.
+  ini_set('display_errors', 1);
 }
 
 // Default configuration. You probably won't need to change any of this.
@@ -86,14 +96,11 @@ function configure() {
   option('views_dir', $app_directory . 'views');
   option('controllers_dir', $app_directory . 'controllers');
 
-  foreach (glob($app_directory . 'models/*.php') as $filename)
-    require_once($filename);
+  // set correct error reporting
+  set_error_reporting();
 
   // default layout for rendering
   layout('layout.html.php');
-
-  if(function_exists('config_post'))
-    config_post();
 }
 
 // Start session
