@@ -87,8 +87,10 @@ function configure() {
   ProximityApp::init($config_directory);
 
   // Environment variable. You could use this to take different actions when on production or development environment.
-  foreach(ProximityApp::$settings['env'] as $state)
-    option('ENV_' . $state, $state);
+  if(array_key_exists('env', ProximityApp::$settings)) {
+    foreach(ProximityApp::$settings['env'] as $state)
+      option('ENV_' . $state, $state);
+  }
 
   option('env', get_env());
   option('base_uri', BASE_PATH);
