@@ -12,8 +12,8 @@
     h2{ font-size: 30px; }
     h3{ margin-bottom: 5px; font-size: 20px; }
     p,code{margin-bottom:20px; margin-top: 5px; display: block; }
-    .result { font-style: italic; background-color: #fff; padding: 4px 6px; border: 1px solid #ddd; }
-    code{background-color:#CFEDCB; padding: 4px 6px; }
+    .result { font-style: italic; background-color: #fff; padding: 4px 6px; border: 1px solid #ddd; font-size: 15px; }
+    code{background-color:#CFEDCB; padding: 4px 6px; font-size: 15px; }
     em{color:#aaa;font-style:italic;}
     section{ margin: 60px 0px; }
     a{ color: #e4002d; text-decoration: none; border-bottom: 1px solid #e4002d; }

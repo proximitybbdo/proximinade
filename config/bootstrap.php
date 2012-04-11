@@ -5,6 +5,8 @@
  */
 Zend_Loader::loadClass('Zend_Db');
 
+// Zend_Loader::loadClass('Zend_Soap_Client');
+
 // Zend_Loader::loadClass('Zend_Mail');
 // Zend_Loader::loadClass('Zend_Mail_Transport_Postmark');
 // 

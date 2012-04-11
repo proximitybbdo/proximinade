@@ -139,3 +139,18 @@
   <p>or</p>
   <code>_log($whatever_variable)</code>
 </section>
+
+<section>
+  <h2>Webservice</h2>
+
+  <p>You can call webservice WSDL methods from PHP with the Zend library.</p>
+  <p>You start with loading the necessary Zend class in your bootstrap.php.<br />Add the following line after <em>Zend_Loader::loadClass('Zend_Db');</em></p>
+  <code>Zend_Loader::loadClass('Zend_Soap_Client');</code>
+  <p>Later on you can use the following code to call a method.</p>
+  <code>
+    $c = new Zend_Soap_Client('http://www.sappipositivity.com/ws/Service.asmx?WSDL');
+    <br />
+    $r = $c->getDetailByUrl(array('sUrl' => 'How-unexploited-land-can-improve-life'));
+  </code>
+</section>
+
