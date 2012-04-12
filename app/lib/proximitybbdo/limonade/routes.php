@@ -32,7 +32,7 @@ function before($route) {
 function after($output) {
   global $root_directory;
 
-  if(ProximityApp::$settings['xporter']['active']) {
+  if(array_key_exists('xporter', ProximityApp::$settings) && ProximityApp::$settings['xporter']['active']) {
     $xporter = new Exporter($root_directory);
     $xporter->export($output);
   }

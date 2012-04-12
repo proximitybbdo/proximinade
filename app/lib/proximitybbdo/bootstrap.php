@@ -15,11 +15,6 @@ require_once('limonade.php');
 // Default timezone.
 date_default_timezone_set('Europe/Brussels');
 
-// Error reporting: report nothing, only fatal errors.
-error_reporting(E_ALL & ~E_STRICT & ~E_WARNING & ~E_NOTICE & ~E_DEPRECATED);
-// Display the errors when they occur.
-ini_set('display_errors', 1);
-
 // Load all Proximity BBDO libraries.
 foreach (glob($lib_directory . 'proximitybbdo/*.php') as $filename)
   require_once($filename);
@@ -61,6 +56,21 @@ function get_env() {
   return $env;
 }
 
+// sets the correct error reporting
+// depending on the environment (DEV / STAGING /  PRODUCTION)
+function set_error_reporting() {
+  if(get_env() === 'DEVELOPMENT') {
+    // Error reporting: report everything
+    error_reporting(E_ALL);
+  } else {
+    // Error reporting: report nothing, only fatal errors.
+    error_reporting(E_ALL & ~E_STRICT & ~E_WARNING & ~E_NOTICE & ~E_DEPRECATED);
+  }
+
+  // Display the errors when they occur.
+  ini_set('display_errors', 1);
+}
+
 // Default configuration. You probably won't need to change any of this.
 function configure() {
   global $app_directory, $config_directory;
@@ -77,8 +87,10 @@ function configure() {
   ProximityApp::init($config_directory);
 
   // Environment variable. You could use this to take different actions when on production or development environment.
-  foreach(ProximityApp::$settings['env'] as $state)
-    option('ENV_' . $state, $state);
+  if(array_key_exists('env', ProximityApp::$settings)) {
+    foreach(ProximityApp::$settings['env'] as $state)
+      option('ENV_' . $state, $state);
+  }
 
   option('env', get_env());
   option('base_uri', BASE_PATH);
@@ -91,6 +103,9 @@ function configure() {
 
   // default layout for rendering
   layout('layout.html.php');
+
+  // set correct error reporting
+  set_error_reporting();
 
   if(function_exists('config_post'))
     config_post();
