@@ -20,6 +20,7 @@ function db_connection() {
 
   try {
     $db->getConnection();
+    $db->query('SET CHARACTER SET \'UTF8\'');
 
     return $db;
   } catch (Zend_Db_Adapter_Exception $e) {

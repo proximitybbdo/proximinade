@@ -63,6 +63,9 @@ function _get_active($page_name, $id = 0) {
 
 function _asset($path) {
   $path = preg_replace("/^\//", "", $path);
+  $path = strlen($path) === 0 ? '' : '/' . $path;
+  $path = (BASE_PATH == '/' ? '' : BASE_PATH) . $path;
+  $path = preg_replace("/\/\//", "/", $path);
 
-  return (BASE_PATH == '/' ? '' : BASE_PATH) . '/' . $path;
+  return $path;
 }
