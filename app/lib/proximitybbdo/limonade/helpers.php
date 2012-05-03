@@ -99,14 +99,14 @@ function _urlfriendly($str){
 }
 
 // =========================================================================================
-// = scanProjectDir A function that scans a directory of the project and returns its files =
+// = _scanprojectdir A function that scans a directory of the project and returns its files =
 // =========================================================================================
 // used for scanning dowload directories 
 // @optional = $$dirname
 // @optional = $scan_direction 1 or 0
 // @optional = $opt_ext for filtering on extension (ex: pdf, mov, etc)
 // =========================================================================================
-function scanProjectDir($dirname = "", $scan_direction = 1, $opt_ext = ""){
+function _scanprojectdir($dirname = "", $scan_direction = 1, $opt_ext = ""){
 	$dir = $_SERVER["DOCUMENT_ROOT"] . BASE_PATH . $dirname;
 	$scaned_files = scandir($dir,$scan_direction);
 	$files = array();
@@ -117,10 +117,10 @@ function scanProjectDir($dirname = "", $scan_direction = 1, $opt_ext = ""){
 			$exploded = explode(".", $file);
 			$file_to_use["name"] = $exploded[0];
 			$file_to_use["ext"] = $exploded[1];
-			if(filesize($_SERVER["DOCUMENT_ROOT"] . BASE_PATH . $dirname . $file) / 1024 > 1024){
-				$file_to_use["size"] = round(filesize($_SERVER["DOCUMENT_ROOT"] . BASE_PATH . $dirname . $file)/1024/1024,2)." MB";
+			if(filesize($dir. $file) / 1024 > 1024){
+				$file_to_use["size"] = round(filesize($dir . $file)/1024/1024,2)." MB";
 			}else{
-				$file_to_use["size"] = round(filesize($_SERVER["DOCUMENT_ROOT"] . BASE_PATH . $dirname . $file)/1024)." KB";
+				$file_to_use["size"] = round(filesize($dir . $file)/1024)." KB";
 			}
 			
 			if($opt_ext !== ""){
@@ -134,6 +134,7 @@ function scanProjectDir($dirname = "", $scan_direction = 1, $opt_ext = ""){
     }
 	return $files;
 }
+
 
 // ========================================
 // = Constrain string when space is short =
