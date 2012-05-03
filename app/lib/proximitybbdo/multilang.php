@@ -157,6 +157,19 @@ class Multilang
 
     return $this->langs[$this->lang][$key];
   }
+  /**
+   * Helper function like _c => lets you directly target a language key in yml file
+   *
+   * @param the key strings that lookup in the yml tree
+   * @return string the value for the searched key
+   */
+  public function _l(){
+	  $args = func_get_args();
+      $result= $this->langs[$this->getLang()];
+      for($i = 0; $i < count($args[0]); $i++)
+		  $result = $result[$args[0][$i]];
+      return $result;
+  }
 
   /**
    * Get all languages formatted for multi-select regular expression ``nl|fr|en|...``
@@ -236,3 +249,11 @@ function _d($key, $regexp = null, $params = null, $echo = true) {
   
   echo(Multilang::getInstance()->_d($key, $regexp, $params));
 }
+// ==================================================================================
+// = Helper function like _c => lets you directly target a language key in yml file =
+// ==================================================================================
+// USE : _l('firstkey','childkey',...);
+function _l(){
+    return	Multilang::getInstance()->_l(func_get_args());
+}
+

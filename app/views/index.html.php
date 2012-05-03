@@ -112,6 +112,11 @@
   <h3>There is also an _d() function, that can replace a dynamic value using a regular expression</h3>
   <code>_d('dynamic', '/%/', 'dynamic coolness');</code>
   <p class="result"><?php _d('dynamic', '/%/', 'dynamic coolness'); ?></p>
+  <h3>You can also quickly search for a key in the yml file by using _l();</h3>
+  <code>_l('testing','along','deep','path');</code>
+  <p class="result"><?php echo(_l('testing','along','deep','path')); ?></p>
+  
+  
 </section>
 
 <section>
@@ -138,4 +143,11 @@
   <code>_log($_POST)</code>
   <p>or</p>
   <code>_log($whatever_variable)</code>
+</section>
+<section>
+  <h2>Util</h2>
+
+  <p>You can list up files for a project directory like this : scanProjectDir($dirname = "", $scan_direction = 1, $opt_ext = "")</p>
+  <p><em>Result : <?php print_r(scanProjectDir("assets/locales"));?></em></p>
+  <code>print_r(scanProjectDir("assets/locales"));</code>
 </section>
