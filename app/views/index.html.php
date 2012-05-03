@@ -147,7 +147,7 @@
 <section>
   <h2>Util</h2>
 
-  <p>You can list up files for a project directory like this : scanProjectDir($dirname = "", $scan_direction = 1, $opt_ext = "")</p>
+  <p>You can list up files for a project directory like this : _scanprojectdir($dirname = "", $scan_direction = 1, $opt_ext = "")</p>
   <p><em>Result : <?php print_r(_scanprojectdir("assets/locales"));?></em></p>
   <code>print_r(_scanprojectdir("assets/locales"));</code>
 </section>
