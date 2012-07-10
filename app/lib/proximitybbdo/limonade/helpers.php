@@ -69,3 +69,13 @@ function _asset($path) {
 
   return $path;
 }
+
+function _url($value, $lang = '') {
+  $lang = strlen($lang) == 0 ? Multilang::getInstance()->getLang() : $lang;
+
+  return url_for($lang . '/' . $value);
+}
+
+function _h_option_select($value1, $value2) {
+  echo ($value1 == $value2) ? 'selected="selected"' : '';
+}
