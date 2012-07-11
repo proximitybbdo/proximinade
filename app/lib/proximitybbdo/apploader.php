@@ -41,8 +41,12 @@ class ProximityApp {
 function _c() {
   $result = ProximityApp::$settings;
 
-  for($i = 0; $i < func_num_args(); $i++)
-    $result = $result[func_get_arg($i)];
+  for($i = 0; $i < func_num_args(); $i++) {
+    if(isset($result[func_get_arg($i)]))
+      $result = $result[func_get_arg($i)];
+    else
+      return NULL;
+  }
 
   return $result;
 }

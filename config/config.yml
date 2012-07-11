@@ -37,6 +37,13 @@ multilang:
   # dir: assets/locales/ # from root, default is assets/locales/
 
 # ============================================================================ #
+# ERROR SETTINGS
+# ============================================================================ #
+errors:
+  # custom_page: error.html.php # must be in the vies dir or subdir
+  # custom_layout: false # false = do not use default layout, true = use default layout 
+
+# ============================================================================ #
 # TESTING
 # ============================================================================ #
 verbose: false

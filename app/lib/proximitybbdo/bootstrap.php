@@ -71,6 +71,29 @@ function set_error_reporting() {
   ini_set('display_errors', 1);
 }
 
+function set_error_handling() {
+  error(E_LIM_HTTP, 'default_error_handler');
+}
+
+function default_error_handler($errno, $errstr, $errfile, $errline) {
+  global $app_directory, $lib_directory;
+
+  status($errno);
+
+  set('code', $errno);
+  set('errors', http_response_status_code($errno));
+  
+  if(_c('errors', 'custom_page'))
+    $html_file = (string) _c('errors', 'custom_page');
+  else
+    $html_file = '../lib/proximitybbdo/views/errors.html.php';
+
+  if((boolean) _c('errors', 'custom_layout'))
+    return html($html_file);
+  else
+    return html($html_file, null);
+}
+
 // Default configuration. You probably won't need to change any of this.
 function configure() {
   global $app_directory, $config_directory;
@@ -106,6 +129,7 @@ function configure() {
 
   // set correct error reporting
   set_error_reporting();
+  set_error_handling();
 
   if(function_exists('config_post'))
     config_post();

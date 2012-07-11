@@ -294,13 +294,41 @@
 </section>
 
 <section>
-  <h2>Logging/debugging</h2>
+  <h2>Errors / Logging / Debugging</h2>
+
+  <h3>Errors</h3>
+
+  <p>All PHP errors are catched and a Proximity error page is shown. You can however provide a custom error page for your application.<br />In the config.yml file you can set the name of the custom html file that is located in your views dir.</p>
+
+  <code>
+  errors:<br />
+  &nbsp;&nbsp;custom_page: errors.html.php
+  </code>  
+
+  <p>By default the html file provides its own layout. If you want to incorporate the error page in your default layout, you can set `custom_layout` to true</p>
+
+  <code>
+  errors:<br />
+  &nbsp;&nbsp;custom_page: errors.html.php<br />
+  &nbsp;&nbsp;custom_layout: true
+  </code>  
+
+  <h3>Logging</h3>
 
   <p>You can use the _log() function to output stuff to your browser's console, converted to a json object. This can be useful if you want do inspect objects, arrays, strings in your app's code.</p>
-  <p><em>Note: the config.yml file should have 'verbose: true' to show the debugging.</em></p>
+
   <code>_log($_POST)</code>
+
   <p>or</p>
+
   <code>_log($whatever_variable)</code>
+
+  <p><em>Note: the config.yml file should have 'verbose: true' to show the debugging.</em></p>
+
+  <code>
+  verbose: true
+  </code>  
+
 </section>
 
 <section>
