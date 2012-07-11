@@ -90,9 +90,9 @@
   
   <h3>First trying out Multilang with the default language</h3>
 
-  <code>_t('title');</code>
+  <code>echo _t('title');</code>
 
-  <p class="result"><?php _t('title'); ?></p>
+  <p class="result"><?php echo _t('title'); ?></p>
 
   <h3>Then change the lang and output again</h3>
 
@@ -104,23 +104,19 @@
 
   <p>and</p>
 
-  <code>_t('title');</code>
+  <code>echo _t('title');</code>
 
-  <p class="result"> <?php Multilang::getInstance()->setLang('fr'); _t('title'); ?> </p>
+  <p class="result"> <?php Multilang::getInstance()->setLang('fr'); echo _t('title'); ?> </p>
 
   <h3>Now we use the same _t() function, but with an extra language parameter</h3>
 
-  <code>_t('title', 'nl-BE');</code>
+  <code>echo _t('title', 'nl-BE');</code>
 
   <p>or</p>
 
-  <code>_t('title', 'nl');</code>
+  <code>echo _t('title', 'nl');</code>
 
-  <p>or</p>
-
-  <code>_t('title', 'nl', true);</code>
-
-  <p class="result"> <?php _t('title', 'nl-BE', true); ?> </p>
+  <p class="result"> <?php echo _t('title', 'nl-BE'); ?> </p>
 
   <h3>Switch back to default language</h3>
 
@@ -132,35 +128,35 @@
 
   <p>You can dig into your YAML file to look up objects and arrays.</p>
 
-  <code>_t('contact', false)->t('title');</code>
+  <code>echo _t('contact')->t('title');</code>
 
-  <p class="result"><?php echo _t('contact', false)->t('title'); ?></p>
+  <p class="result"><?php echo _t('contact')->t('title'); ?></p>
 
   <p>You have to give 'false' as 2nd argument so the _t function won't echo the result</p>
   <p>The language parameter will still work:</p>
 
-  <code>_t('contact', 'fr-BE', false)->t('title');</code>
+  <code>echo _t('contact', 'fr-BE')->t('title');</code>
 
-  <p class="result"><?php echo _t('contact', 'fr-BE', false)->t('title'); ?></p>
+  <p class="result"><?php echo _t('contact', 'fr-BE')->t('title'); ?></p>
   <p></p>
 
   <p>An array behind an object:</p>
 
-  <code>_t('contact', false)->t('sex')->t(0);</code>
+  <code>echo _t('contact')->t('sex')->t(0);</code>
 
-  <p class="result"><?php echo _t('contact', false)->t('sex')->t(0); ?></p>
+  <p class="result"><?php echo _t('contact')->t('sex')->t(0); ?></p>
 
   <p>or</p>
 
-  <code>$arr = _t('contact', false)->t('sex');<br />echo $arr[1];</code>
+  <code>$arr = _t('contact')->t('sex');<br />echo $arr[1];</code>
 
-  <p class="result"><?php $arr = _t('contact', false)->t('sex'); echo $arr[1]; ?></p>
+  <p class="result"><?php $arr = _t('contact')->t('sex'); echo $arr[1]; ?></p>
 
   <h3>There is also an _d() function, that can replace a dynamic value using a regular expression</h3>
 
-  <code>_d('dynamic', '/%/', 'dynamic coolness');</code>
+  <code>echo _d('dynamic', '/%/', 'dynamic coolness');</code>
 
-  <p class="result"><?php _d('dynamic', '/%/', 'dynamic coolness'); ?></p>
+  <p class="result"><?php echo _d('dynamic', '/%/', 'dynamic coolness'); ?></p>
 </section>
 
 <section>

@@ -231,10 +231,10 @@ function _t($key, $var1 = '', $var2 = true) {
 
   $value = Multilang::getInstance()->_t($key, Multilang::getInstance()->iso_lang($var1));
 
-  if(!$echo) 
+  // if(!$echo) 
     return $value;
 
-  echo($value);
+  // echo($value);
 }
 
 /**
