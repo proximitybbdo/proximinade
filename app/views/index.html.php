@@ -328,6 +328,89 @@
 </section>
 
 <section>
+  <h2>Base Data Model</h2>
+
+  <p>The BaseModel class can be used to inherit your model classes from.</p>
+
+  <h3>Construct</h3>
+
+  <p>Example:</p>
+
+  <code>
+    class Actie extends BaseModel {<br />
+    &nbsp;&nbsp;public $id = -1;<br />
+    &nbsp;&nbsp;public $email = '';<br />
+    &nbsp;&nbsp;public $user = -1;<br />
+    &nbsp;&nbsp;<br />
+    &nbsp;&nbsp;public $lang = '';<br />
+    &nbsp;&nbsp;public $creation_date = '';<br />
+    &nbsp;&nbsp;<br />
+    &nbsp;&nbsp;function __construct() { }<br />
+    }
+  </code>
+
+  <p>If, for example, you have a form which posts data to a controller, you can easily assign all post variables to the class properties like this:</p>
+
+  <code>
+    $a = new Actie();<br />
+    $a->construct($_POST);<br />
+  </code>
+
+  <h3>Database</h3>
+
+  <p>The BaseModel has also an internal link to the db_connection() function located in the config/helpers.php file.</p>
+
+  <code>
+    $a->get_db(); 
+  </code>
+
+  <p>And it is accessible as a static function as well:</p>
+
+  <code>Actie::_get_db();</code>
+  <p>or</p>
+  <code>BaseModel::_get_db();</code>
+
+  <h3>Finders</h3>
+
+  <p>An easy way to create data models based on database queries, is to create them as static functions, additions, on your data model.<br />Example:</p>
+
+  <code>
+    class Actie extends BaseModel {<br />
+    &nbsp;&nbsp;public static function find_by_id($id) {<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;$db = Actie::_get_db();<br />
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;if(!$db)<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return NULL;<br />
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;<em>some database calling code that returns a result</em>
+    <br />
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;$a = new Actie();<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;$a->construct($result);<br />
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;return $a;<br />
+    &nbsp;&nbsp;}<br />
+    <br />
+    &nbsp;&nbsp;public $id = -1;<br />
+    &nbsp;&nbsp;public $email = '';<br />
+    &nbsp;&nbsp;public $user = -1;<br />
+    <br />
+    &nbsp;&nbsp;public $lang = '';<br />
+    &nbsp;&nbsp;public $creation_date = '';<br />
+    <br />
+    &nbsp;&nbsp;function __construct() { }<br />
+    }
+  </code>
+
+  <p>Now you can use this to fetch data:</p>
+
+  <code>$a = Actie::find_by_id(76);</code>
+
+  <p>Will return an object of type `Actie` or NULL.</p>
+
+</section>
+
+<section>
   <h2>Webservice</h2>
 
   <p>You can call webservice WSDL methods from PHP with the Zend library.</p>

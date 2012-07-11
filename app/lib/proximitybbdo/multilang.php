@@ -232,7 +232,7 @@ function _t($key, $var1 = '', $var2 = true) {
   $value = Multilang::getInstance()->_t($key, Multilang::getInstance()->iso_lang($var1));
 
   // if(!$echo) 
-    return $value;
+  return $value;
 
   // echo($value);
 }
@@ -242,8 +242,8 @@ function _t($key, $var1 = '', $var2 = true) {
  * for easy of use, works with regexp for dynamic values
  */
 function _d($key, $regexp = null, $params = null, $echo = true) {
-  if(!$echo)
-    return Multilang::getInstance()->_d($key, $regexp, $params);
+  // if(!$echo)
+  return Multilang::getInstance()->_d($key, $regexp, $params);
   
-  echo(Multilang::getInstance()->_d($key, $regexp, $params));
+  // echo(Multilang::getInstance()->_d($key, $regexp, $params));
 }

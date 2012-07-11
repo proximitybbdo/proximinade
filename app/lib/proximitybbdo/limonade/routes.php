@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Proximity Multilang lib222222222
+ * Proximity Multilang lib
  *
  * Handles translation through xml files
  * 
