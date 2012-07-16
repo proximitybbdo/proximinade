@@ -16,28 +16,35 @@ require_once('limonade.php');
 date_default_timezone_set('Europe/Brussels');
 
 // Load all Proximity BBDO libraries.
-foreach (glob($lib_directory . 'proximitybbdo/*.php') as $filename)
+foreach (glob($lib_directory . 'proximitybbdo/*.php', GLOB_NOSORT) as $filename)
   require_once($filename);
 
-// Load all Limonade startip files.
-foreach (glob($lib_directory . 'proximitybbdo/limonade/*.php') as $filename)
+// Load all sub lib files.
+foreach (glob($lib_directory . 'proximitybbdo/[!(views)]*/*.php', GLOB_NOSORT) as $filename)
   require_once($filename);
 
-// Include Zend Loader class.
-// Load librarues like this: ``Zend_Loader::loadClass('Zend_Db');``
+/**
+ * Include Zend Loader class.
+ * Load libraries like this: ``Zend_Loader::loadClass('Zend_Db');``
+ */
 require_once('Zend/Loader.php');
 
-// Basic config files needed to boot the application.
+/**
+ * basic config files needed to boot the application.
+ */
 require_once('bootstrap.php');
 require_once('helpers.php');
 require_once('routes.php');
 
-// Models if exists
-if(file_exists($app_directory . 'models/')) {
-  foreach (glob($app_directory . 'models/*.php') as $filename)
-    require_once($filename);
-}
+/**
+ * Load all models
+ */
+foreach (glob($app_directory . 'models/*.php', GLOB_NOSORT) as $filename)
+  require_once($filename);
 
+/**
+ * Get environment settings based on root files.
+ */
 function get_env() {
   global $root_directory;
   
@@ -45,7 +52,7 @@ function get_env() {
   $files = array();
   $envs = array('PRODUCTION', 'STAGING', 'DEVELOPMENT'); // priority order
 
-  foreach(glob($root_directory . '*') as $file)
+  foreach(glob($root_directory . '*', GLOB_NOSORT) as $file)
     array_push($files, basename($file));
 
   foreach($envs as $state) {
@@ -120,9 +127,6 @@ function configure() {
 
   option('views_dir', $app_directory . 'views');
   option('controllers_dir', $app_directory . 'controllers');
-
-  foreach (glob($app_directory . 'models/*.php') as $filename)
-    require_once($filename);
 
   // default layout for rendering
   layout('layout.html.php');
