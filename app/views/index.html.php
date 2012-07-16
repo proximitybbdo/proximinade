@@ -10,6 +10,14 @@
   
   <code>$base_path</code>
 
+  <p><em>Note: Only available in a view / template.</em></p>
+
+  <p class="result"><?php echo($base_path); ?></p>
+
+  <p>If you need the base path in a controller you can use the following constant.</p>
+
+  <code>BASE_PATH</code>
+
   <p class="result"><?php echo($base_path); ?></p>
 
   <p><em>Note: the BASE_PATH (or $base_path) is a path, so it ends with a `/`. When creating file paths, be carefull not to have double `//`</em></p>
@@ -81,6 +89,8 @@
   <p><em>Note: the short var is set on the before() call, so all changes during the build of a page (as above), will not be reflected. To get the most up to date result, use the longer Multilang::getInstance()->getLang() version.</em></p>
 
   <code>echo($lang);</code>
+
+  <p><em>Note: Only available in a view / template.</em></p>
 
   <p class="result"><?php echo($lang); ?></p>
 
@@ -213,6 +223,8 @@
 
 <section>
   <h2>Templates</h2>
+
+  <p>We use the <strong>`.html.php`</strong> extension so we can leverage the code highlighting of your IDE / editor.</p>
 
   <h3>Standard</h3>
 
