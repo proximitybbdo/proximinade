@@ -13,8 +13,7 @@
  */
 # ============================================================================ #
 
-// Require spyc for YAML parsing.
-require_once(dirname(dirname(__FILE__)) . "/spyc/spyc.php");
+use Symfony\Component\Yaml\Yaml;
 
 class ProximityApp {
   public static $settings = array();
@@ -22,7 +21,7 @@ class ProximityApp {
 
   // Parse a yaml config file and save it in an array
   private static function load_settings($settings_file) {
-    self::$settings = spyc_load_file($settings_file);
+    self::$settings = Yaml::parse($settings_file);
   }
 
   // Inits the actual app, putting together a skeleton of

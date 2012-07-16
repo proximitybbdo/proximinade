@@ -1,0 +1,23 @@
+{
+    "hash": "a588e6d1265476dbeddae845e51ad4ad",
+    "packages": [
+        {
+            "package": "facebook/php-sdk",
+            "version": "dev-master",
+            "source-reference": "21321ffe121f62f7f7ff1068c42e693f07be912c",
+            "commit-date": "1341949782"
+        },
+        {
+            "package": "symfony/yaml",
+            "version": "v2.0.16"
+        }
+    ],
+    "packages-dev": null,
+    "aliases": [
+
+    ],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "facebook/php-sdk": 20
+    }
+}

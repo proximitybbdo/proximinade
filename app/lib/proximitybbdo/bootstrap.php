@@ -12,6 +12,10 @@ set_include_path(get_include_path() . PATH_SEPARATOR . $config_directory);
 // [Limonade PHP](https://github.com/sofadesign/limonade/): the basis of this framework.
 require_once('limonade.php');
 
+// Require vendor install
+if(file_exists($root_directory . 'vendor/autoload.php'))
+  require($root_directory . 'vendor/autoload.php');
+
 // Default timezone.
 date_default_timezone_set('Europe/Brussels');
 

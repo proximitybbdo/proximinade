@@ -10,8 +10,9 @@
  */
 # ============================================================================ #
 
-class Multilang
-{
+use Symfony\Component\Yaml\Yaml;
+
+class Multilang {
   private static $instance = null;
 
   private $lang = ''; 
@@ -86,7 +87,7 @@ class Multilang
 
     // Parse languages
     foreach (glob($lang_dir . '*.yml') as $filename)
-      $this->langs[basename($filename, '.yml')] = spyc_load_file($filename);
+      $this->langs[basename($filename, '.yml')] = Yaml::parse($filename);
   }
 
   /**
