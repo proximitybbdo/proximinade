@@ -3,20 +3,22 @@
 /**
  * Proximity Multilang lib
  *
- * Handles translation through xml files
+ * Handles translation through yaml files
  * 
- * v0.05
+ * v0.1
  * @package proximitybbdo
  */
 # ============================================================================ #
 
-class Multilang
-{
+include_once(dirname(__FILE__) . '/../spyc/spyc.php');
+
+class Multilang {
+
   private static $instance = null;
 
-  private $lang = ''; 
   public $langs = array();
-  private $inited = false;
+  private $lang = ''; 
+  private $defaultLang = '';
 
   private function __construct() {
     $this->lang = '';
@@ -37,6 +39,19 @@ class Multilang
       self::$instance = new Multilang();
 
     return self::$instance;
+  }
+
+  /**
+   * Parse the language files and set the default lang
+   */
+  public function init($lang_dir, $defaultLang = 'nl-BE') {
+    $this->defaultLang = $defaultLang;
+    $this->setlang($defaultLang);
+
+    // Parse languages
+    foreach (glob($lang_dir . '/*.yml') as $filename) {
+      $this->langs[basename($filename, '.yml')] = spyc_load_file($filename);
+    }
   }
 
   public function iso_lang($lang) {
@@ -69,31 +84,11 @@ class Multilang
   }
 
   /**
-   * Parse the language files and set the default lang
-   */
-  public function init() {
-    if($this->inited == FALSE)
-      $this->inited = TRUE;
-    else
-      return;
-
-    $lang_dir_setting = array_key_exists('dir', ProximityApp::$settings['multilang']) ? ProximityApp::$settings['multilang']['dir'] : '';
-    $lang_dir = strlen($lang_dir_setting) > 0 ? $lang_dir_setting : 'assets/locales/';
-    $lang_dir = dirname(__FILE__) . '/../../../' . $lang_dir;
-
-    // Set default lang
-    $this->setlang(ProximityApp::$settings['multilang']['default']);
-
-    // Parse languages
-    foreach (glob($lang_dir . '*.yml') as $filename)
-      $this->langs[basename($filename, '.yml')] = spyc_load_file($filename);
-  }
-
-  /**
    * Destroy the language array and any other variables
    */
   public function destroy() {
-    /* unset($this->lang); */
+    unset($this->langs);
+    $this->langs = array();
     return TRUE;
   }
 
@@ -117,8 +112,8 @@ class Multilang
   /**
    * Switch back to the default language
    */
-  public function defaultLang() {
-    $this->setLang(ProximityApp::$settings['multilang']['default']);
+  public function setDefaultLang() {
+    $this->setLang($this->defaultLang);
   }
 
   /**
@@ -231,10 +226,7 @@ function _t($key, $var1 = '', $var2 = true) {
 
   $value = Multilang::getInstance()->_t($key, Multilang::getInstance()->iso_lang($var1));
 
-  // if(!$echo) 
   return $value;
-
-  // echo($value);
 }
 
 /**
@@ -242,8 +234,5 @@ function _t($key, $var1 = '', $var2 = true) {
  * for easy of use, works with regexp for dynamic values
  */
 function _d($key, $regexp = null, $params = null, $echo = true) {
-  // if(!$echo)
   return Multilang::getInstance()->_d($key, $regexp, $params);
-  
-  // echo(Multilang::getInstance()->_d($key, $regexp, $params));
 }

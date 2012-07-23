@@ -130,9 +130,9 @@
 
   <h3>Switch back to default language</h3>
 
-  <code>Multilang::getInstance()->defaultLang();</code>
+  <code>Multilang::getInstance()->setDefaultLang();</code>
 
-  <?php Multilang::getInstance()->defaultLang(); ?>
+  <?php Multilang::getInstance()->setDefaultLang(); ?>
 
   <h3>Chain it!</h3>
 
