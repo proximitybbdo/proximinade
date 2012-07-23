@@ -1,5 +1,7 @@
 <?php
 
+include_once(dirname(__FILE__) . '/limonade/helpers.php');
+
 class BaseModel {
   public $db = NULL;
 
@@ -25,9 +27,19 @@ class BaseModel {
     return is_null($this->db) ? FALSE : $this->db;
   }
 
-  protected static function _get_db() {
+  public function add_error() {
+    throw new Exception('Not yet implemented: BaseModel::add_error');
+  }
+
+  public static function _get_db() {
     $d = new BaseModel();
 
     return $d->get_db();
+  }
+
+  public static function _add_error() {
+    $d = new BaseModel();
+
+    return $d->add_error();
   }
 }

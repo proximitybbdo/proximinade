@@ -12,6 +12,24 @@
  */
 # ============================================================================ #
 
+
+/**
+ * Helper _c function defined outside of the apploader class for easy of use.
+ * Parses the options found in the config.yml
+ */
+function _c() {
+  $result = ProximityApp::$settings;
+
+  for($i = 0; $i < func_num_args(); $i++) {
+    if(isset($result[func_get_arg($i)]))
+      $result = $result[func_get_arg($i)];
+    else
+      return NULL;
+  }
+
+  return $result;
+}
+
 /**
  * Logs input to the console (if available, won't crash on IE)
  *
@@ -78,4 +96,28 @@ function _url($value, $lang = '') {
 
 function _h_option_select($value1, $value2) {
   echo ($value1 == $value2) ? 'selected="selected"' : '';
+}
+
+function db_connection() {
+  $db_env = _c('db_' . option('env'));
+  
+  if(is_null($db_env))
+    $db_env = _c('db');
+
+  $db_settings = array( 'host'      => $db_env['host'], 
+                        'username'  => $db_env['user'],  
+                        'password'  => $db_env['password'],  
+                        'dbname'    => $db_env['db']
+  );
+
+  $db = Zend_Db::factory($db_env['adapter'], $db_settings); 
+
+  try {
+    $db->getConnection();
+    $db->query('SET CHARACTER SET \'UTF8\'');
+
+    return $db;
+  } catch (Zend_Db_Adapter_Exception $e) {
+    return NULL;
+  }
 }

@@ -6,7 +6,7 @@ $config_directory = $root_directory . 'config/';
 
 set_include_path(get_include_path() . PATH_SEPARATOR . $lib_directory);
 
-include 'proximitybbdo/multilang.php';
+include_once('proximitybbdo/multilang.php');
 
 class MultiLangTest extends PHPUnit_Framework_TestCase {
 
@@ -67,9 +67,11 @@ class MultiLangTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals(_t('tmnt', 'fr-BE'), "Le chanson en FR, n'existe pas! Turle power!");
   }
 
-  public function testTChaining() {
+  public function testGlobalTChaining() {
     $this->assertEquals(_t('chain')->t('hangs'), 'low');
   }
+
+   
 
 }
 ?>

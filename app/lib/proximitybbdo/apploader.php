@@ -16,12 +16,17 @@
 // Require spyc for YAML parsing.
 require_once(dirname(dirname(__FILE__)) . "/spyc/spyc.php");
 
+// multilang dependency
+require_once('multilang.php');
+
 class ProximityApp {
   public static $settings = array();
   public static $settings_file = 'config.yml';
 
   // Parse a yaml config file and save it in an array
   private static function load_settings($settings_file) {
+    var_dump($settings_file);
+    
     self::$settings = spyc_load_file($settings_file);
   }
 
@@ -37,19 +42,4 @@ class ProximityApp {
     $lang_dir = dirname(__FILE__) . '/../../../' . $lang_dir;
     Multilang::getInstance()->init($lang_dir);
   }
-}
-
-// Helper _c function defined outside of the apploader class
-// for easy of use
-function _c() {
-  $result = ProximityApp::$settings;
-
-  for($i = 0; $i < func_num_args(); $i++) {
-    if(isset($result[func_get_arg($i)]))
-      $result = $result[func_get_arg($i)];
-    else
-      return NULL;
-  }
-
-  return $result;
 }
