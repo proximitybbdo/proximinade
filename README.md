@@ -1,3 +1,5 @@
+[![Build Status](https://secure.travis-ci.org/proximitybbdo/proximinade.png)](http://travis-ci.org/proximitybbdo/proximinade)
+
 Proximinade 1.6
 ===============
 
