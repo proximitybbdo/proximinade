@@ -396,20 +396,6 @@
     $a->construct($_POST);<br />
   </code>
 
-  <h3>Database</h3>
-
-  <p>The BaseModel has also an internal link to the db_connection() function located in the config/helpers.php file.</p>
-
-  <code>
-    $a->get_db(); 
-  </code>
-
-  <p>And it is accessible as a static function as well:</p>
-
-  <code>Actie::_get_db();</code>
-  <p>or</p>
-  <code>BaseModel::_get_db();</code>
-
   <h3>Finders</h3>
 
   <p>An easy way to create data models based on database queries, is to create them as static functions, additions, on your data model.<br />Example:</p>

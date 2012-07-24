@@ -1,17 +1,17 @@
 <?php
-# ============================================================================ #
+
 /**
- * Proximity Multilang lib
+ * Proximity MultiLang lib
  *
  * Handles translation through yaml files
  * 
  * @package proximitybbdo
+ * @namespace proximitybbdo
  */
-# ============================================================================ #
 
 include_once(dirname(__FILE__) . '/../spyc/spyc.php');
 
-class Multilang {
+class MultiLang {
 
   private static $instance = null;
 
@@ -29,11 +29,11 @@ class Multilang {
   }
 
   /**
-   * Returns an instance of Multilang
+   * Returns an instance of MultiLang
    */
   public static function get_instance() {
     if( self::$instance == null )
-      self::$instance = new Multilang();
+      self::$instance = new MultiLang();
 
     return self::$instance;
   }
@@ -121,11 +121,10 @@ class Multilang {
    * @param string $key the key of the translated string
    * @param string $lang (optional) lang key
    *
-   * @return string
+   * @return MultiLangKey
    */
-  public function _t($key, $lang = '') {
-    $lang = strlen($lang) == 0 ? $this->lang : $this->iso_lang($lang);
-
+  public function _t($key, $lang) {
+    echo $lang;
     return new MultiLangKey($this->langs[$lang][$key]);
   }
 
@@ -140,17 +139,11 @@ class Multilang {
    *
    * @return string
    */
-  public function _d($key, $regexp, $params, $lang = '') {
-    $lang = strlen($lang) == 0 ? $this->lang : $this->iso_lang($lang);
+  public function _d($key, $regexp, $params, $lang) {
+    $value = $this->langs[$lang][$key];
+    $value = preg_replace($regexp, $params, $value);
 
-    if(isset($regexp)) {
-      $value = $this->langs[$this->lang][$key];
-      $value = preg_replace($regexp, $params, $value);
-
-      return $value;
-    }
-
-    return new MultiLangKey($this->langs[$lang][$key]);
+    return $value;
   }
 
   /**
@@ -167,6 +160,7 @@ class Multilang {
 
   /**
    * Get count of languages available
+   *
    * @return int
    */
   public function get_lang_count() {
@@ -196,14 +190,10 @@ class MultiLangKey extends ArrayObject {
   }
 
   private function __d($key, $regexp, $params) {
-    if(isset($regexp)) {
-      $value = $this->_data[$key];
-      $value = preg_replace($regexp, $params, $value);
+    $value = $this->_data[$key];
+    $value = preg_replace($regexp, $params, $value);
 
-      return $value;
-    }
-
-    return new MultiLangKey($this->_data[$key]);
+    return $value;
   }
 
   public function __toString() {
@@ -212,29 +202,34 @@ class MultiLangKey extends ArrayObject {
 }
 
 /**
- * Helper _t function defined outside of the multilang class for ease of use,
- * pass language as second parameter for specific translation of key
- * and pass false as 2nd or 3rd parameter to return value instead
+ * Gets the responding string for a given key
+ *
+ * @param string $key the key of the translated string
+ * @param string $lang (optional) lang key
+ *
+ * @return string
  */
-function _t($key, $var1 = '', $var2 = true) {
-  if(is_bool($var1))
-    $echo = (bool) $var1;
-  else {
-    $echo = $var2;
+function _t($key, $lang = '') {
+  $lang = strlen($lang) == '' ? MultiLang::get_instance()->get_lang() : MultiLang::get_instance()->iso_lang($lang);
 
-    if(strlen($var1) == 0)
-      $var1 = Multilang::get_instance()->get_lang();
-  }
-
-  $value = Multilang::get_instance()->_t($key, Multilang::get_instance()->iso_lang($var1));
+  $value = MultiLang::get_instance()->_t($key, $lang);
 
   return $value;
 }
 
 /**
- * Helper _d function defined outside of the multilang class
- * for easy of use, works with regexp for dynamic values
+ * Gets the responding string for a given key, but with
+ * a dynamic twist
+ *
+ * @param string $key the key of the translated string
+ * @param string $regexp a regular expression update dynamic values
+ * @param string $params the params to replace the the regexp matches
+ * @param string $lang (optional) lang key
+ *
+ * @return string
  */
-function _d($key, $regexp = null, $params = null, $echo = true) {
-  return Multilang::get_instance()->_d($key, $regexp, $params);
+function _d($key, $regexp, $params, $lang = '') {
+  $lang = strlen($lang) == '' ? MultiLang::get_instance()->get_lang() : MultiLang::get_instance()->iso_lang($lang);
+
+  return MultiLang::get_instance()->_d($key, $regexp, $params, $lang);
 }
