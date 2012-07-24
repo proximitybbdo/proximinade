@@ -63,8 +63,12 @@ class MultiLangTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals(_t('tmnt'), 'Heroes in a half shell, Turtle power!');
   }
 
-  public function testGlobalTWithLang() {
+  public function testGlobalTWithISOLang() {
     $this->assertEquals(_t('tmnt', 'fr-BE'), "Le chanson en FR, n'existe pas! Turle power!");
+  }
+
+  public function testGlobalTWithLang() {
+    $this->assertEquals(_t('tmnt', 'fr'), "Le chanson en FR, n'existe pas! Turle power!");
   }
 
   public function testGlobalTChaining() {

@@ -142,7 +142,6 @@
 
   <p class="result"><?php echo _t('contact')->t('title'); ?></p>
 
-  <p>You have to give 'false' as 2nd argument so the _t function won't echo the result</p>
   <p>The language parameter will still work:</p>
 
   <code>echo _t('contact', 'fr-BE')->t('title');</code>
@@ -164,7 +163,7 @@
 
   <h3>There is also an _d() function, that can replace a dynamic value using a regular expression</h3>
 
-  <code>echo _d('dynamic', '/%/', 'dynamic coolness');</code>
+  <code>String in yaml: 'Dit is een % titel' <br />echo _d('dynamic', '/%/', 'dynamic coolness');</code>
 
   <p class="result"><?php echo _d('dynamic', '/%/', 'dynamic coolness'); ?></p>
 </section>
