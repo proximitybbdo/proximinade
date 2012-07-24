@@ -12,49 +12,49 @@ class MultiLangTest extends PHPUnit_Framework_TestCase {
 
   protected function setUp() {
     $this->langDir = dirname(__FILE__) . '/fixtures/locales';
-    MultiLang::getInstance()->init($this->langDir);
+    MultiLang::get_instance()->init($this->langDir);
   }
 
   protected function tearDown() {
-    Multilang::getInstance()->destroy();
+    Multilang::get_instance()->destroy();
   }
 
-  public function testShouldReturnMultilangInstance() {
-    $this->assertEquals('Multilang', get_class(MultiLang::getInstance()));
+  public function testGetInstanceShouldReturnMultilangInstance() {
+    $this->assertEquals('Multilang', get_class(MultiLang::get_instance()));
   }
 
   public function testInitWithNoDefaultLangSetsDefaultLangToNLBE() {
-    $this->assertEquals('nl-BE', MultiLang::getInstance()->getLang());
+    $this->assertEquals('nl-BE', MultiLang::get_instance()->get_lang());
   }
 
   public function testInitWithDefaultLangSetsLangToFRBE() {
-    MultiLang::getInstance()->init($this->langDir, 'fr-BE');
-    $this->assertEquals('fr-BE', MultiLang::getInstance()->getLang());
+    MultiLang::get_instance()->init($this->langDir, 'fr-BE');
+    $this->assertEquals('fr-BE', MultiLang::get_instance()->get_lang());
   }
 
   public function testInitIncreasesLangs() {
-    Multilang::getInstance()->destroy();
-    $this->assertCount(0, Multilang::getInstance()->langs);
-    MultiLang::getInstance()->init($this->langDir);
-    $this->assertCount(2, Multilang::getInstance()->langs);
+    Multilang::get_instance()->destroy();
+    $this->assertCount(0, Multilang::get_instance()->langs);
+    MultiLang::get_instance()->init($this->langDir);
+    $this->assertCount(2, Multilang::get_instance()->langs);
   }
 
   public function testLangSwitchOutputsCorrectLbels() {
-    Multilang::getInstance()->setLang('nl-BE');
+    Multilang::get_instance()->set_lang('nl-BE');
     $this->assertEquals(_t('tmnt'), 'Heroes in a half shell, Turtle power!');
 
-    Multilang::getInstance()->setLang('fr-BE');
+    Multilang::get_instance()->set_lang('fr-BE');
     $this->assertEquals(_t('tmnt'), "Le chanson en FR, n'existe pas! Turle power!");
 
-    Multilang::getInstance()->setLang('nl-BE');
+    Multilang::get_instance()->set_lang('nl-BE');
     $this->assertEquals(_t('tmnt'), 'Heroes in a half shell, Turtle power!');
   }
 
   public function testResetDefaultLanguage() {
-    Multilang::getInstance()->setLang('fr-BE');
+    Multilang::get_instance()->set_lang('fr-BE');
     $this->assertEquals(_t('tmnt'), "Le chanson en FR, n'existe pas! Turle power!");
 
-    Multilang::getInstance()->setDefaultLang();
+    Multilang::get_instance()->set_default_lang();
     $this->assertEquals(_t('tmnt'), 'Heroes in a half shell, Turtle power!');
   }
 

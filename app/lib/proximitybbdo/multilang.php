@@ -32,9 +32,9 @@ class Multilang {
   }
 
   /**
-   * Returns an instance of Multilan
+   * Returns an instance of Multilang
    */
-  public static function getInstance() {
+  public static function get_instance() {
     if( self::$instance == null )
       self::$instance = new Multilang();
 
@@ -96,7 +96,7 @@ class Multilang {
    * Change the default language multilang translates against
    * @param string $lang the new language
    */
-  public function setLang($lang) {
+  public function set_lang($lang) {
     $this->lang = $this->iso_lang($lang);
     $this->set_time_locale();
   }
@@ -105,14 +105,14 @@ class Multilang {
    * Return the current language
    * @return string
    */
-  public function getLang() {
+  public function get_lang() {
     return $this->lang;
   }
 
   /**
    * Switch back to the default language
    */
-  public function setDefaultLang() {
+  public function set_default_lang() {
     $this->setLang($this->defaultLang);
   }
 
