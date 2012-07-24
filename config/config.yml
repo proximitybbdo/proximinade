@@ -11,22 +11,22 @@ admin:
 db:
   adapter: mysqli
   host: localhost
-  db: database
-  user: user_name
+  dbname: database
+  username: user_name
   password: password
 
 db_STAGING:
   adapter: mysqli
   host: localhost
-  db: database
-  user: user_name
+  dbname: database
+  username: user_name
   password: password
 
 db_PRODUCTION:
   adapter: mysqli
   host: localhost
-  db: database
-  user: user_name
+  dbname: database
+  username: user_name
   password: password
 
 # ============================================================================ #

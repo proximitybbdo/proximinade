@@ -71,7 +71,5 @@ class MultiLangTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals(_t('chain')->t('hangs'), 'low');
   }
 
-   
-
 }
 ?>

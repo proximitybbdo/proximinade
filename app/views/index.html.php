@@ -84,9 +84,9 @@
   <h2>MultiLang</h2>
 
   <h3>The current language can be fetched through<br>
-  Multilang::getInstance()->getLang(), or through the short var $lang</h3>
+  Multilang::get_instance()->getLang(), or through the short var $lang</h3>
 
-  <p><em>Note: the short var is set on the before() call, so all changes during the build of a page (as above), will not be reflected. To get the most up to date result, use the longer Multilang::getInstance()->getLang() version.</em></p>
+  <p><em>Note: the short var is set on the before() call, so all changes during the build of a page (as above), will not be reflected. To get the most up to date result, use the longer Multilang::get_instance()->getLang() version.</em></p>
 
   <code>echo($lang);</code>
 
@@ -94,9 +94,9 @@
 
   <p class="result"><?php echo($lang); ?></p>
 
-  <code>echo Multilang::getInstance()->getLang();</code>
+  <code>echo Multilang::get_instance()->get_lang();</code>
 
-  <p class="result"><?php echo(Multilang::getInstance()->getLang()); ?></p>
+  <p class="result"><?php echo(Multilang::get_instance()->get_lang()); ?></p>
   
   <h3>First trying out Multilang with the default language</h3>
 
@@ -106,17 +106,17 @@
 
   <h3>Then change the lang and output again</h3>
 
-  <code>Multilang::getInstance()->lang('fr-BE');</code>
+  <code>Multilang::get_instance()->lang('fr-BE');</code>
 
   <p>or</p>
 
-  <code>Multilang::getInstance()->lang('fr');</code>
+  <code>Multilang::get_instance()->lang('fr');</code>
 
   <p>and</p>
 
   <code>echo _t('title');</code>
 
-  <p class="result"> <?php Multilang::getInstance()->setLang('fr'); echo _t('title'); ?> </p>
+  <p class="result"> <?php Multilang::get_instance()->set_lang('fr'); echo _t('title'); ?> </p>
 
   <h3>Now we use the same _t() function, but with an extra language parameter</h3>
 
@@ -130,9 +130,9 @@
 
   <h3>Switch back to default language</h3>
 
-  <code>Multilang::getInstance()->setDefaultLang();</code>
+  <code>Multilang::get_instance()->set_default_lang();</code>
 
-  <?php Multilang::getInstance()->setDefaultLang(); ?>
+  <?php Multilang::get_instance()->set_default_lang(); ?>
 
   <h3>Chain it!</h3>
 

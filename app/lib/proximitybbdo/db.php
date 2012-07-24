@@ -39,28 +39,26 @@ class Database {
    *   ['db']
    */
   public function init($settings) {
-    $setup = array( 'host'      => $settings['host'], 
-      'username'  => $settings['user'],  
-      'password'  => $settings['password'],  
-      'dbname'    => $settings['db']
-    );
-
-    $db = Zend_Db::factory($settings['adapter'], $setup); 
+    $db = Zend_Db::factory($settings['adapter'], $settings);
 
     try {
       $db->getConnection();
-      $db->query('SET CHARACTER SET \'UTF8\'');
+
+      // the following rule is not supported by sqlite
+      if($settings['adapter'] !== 'pdo_sqlite') {
+        $db->query('SET CHARACTER SET \'UTF8\'');
+      }
 
       $this->db = $db;
     } catch (Zend_Db_Adapter_Exception $e) {
-      trigger_error("Error initializing DB", E_USER_ERROR);
+      trigger_error("Error initializing DB", E_USER_NOTICE);
     }
   }
 
   /**
    * Returns a Zend db connection object
    */
-  public function get_connection() {
-    return $db;
+  public function get_db() {
+    return $this->db;
   }
 }

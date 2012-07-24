@@ -61,7 +61,7 @@ function _page($id = 0) {
   $parts = _url_parts();
 
   // if first part is a lang (we match it with the lang array from MultiLang)
-  if(count($parts) > 0 && preg_match(Multilang::getInstance()->langs_as_regexp(), $parts[0]))
+  if(count($parts) > 0 && preg_match(Multilang::get_instance()->langs_as_regexp(), $parts[0]))
     array_shift($parts);
 
   // if the given index is found in the url
@@ -89,7 +89,7 @@ function _asset($path) {
 }
 
 function _url($value, $lang = '') {
-  $lang = strlen($lang) == 0 ? Multilang::getInstance()->getLang() : $lang;
+  $lang = strlen($lang) == 0 ? Multilang::get_instance()->get_lang() : $lang;
 
   return url_for($lang . '/' . $value);
 }
