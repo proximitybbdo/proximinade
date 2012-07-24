@@ -21,4 +21,14 @@ class DBTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals('Database', get_class(Database::get_instance()));
   }
 
+  public function testReturnsDbObject() {
+    Database::get_instance()->init(array(
+      'adapter'  => 'PDO_SQLITE',
+      'host'     => 'localhost',
+      'user'     => 'nada',
+      'password' => 'nada',
+      'db'       => dirname(__FILE__) . '/fixtures/db.sqlite'
+    ));
+  }
+
 }

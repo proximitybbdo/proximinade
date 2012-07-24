@@ -45,7 +45,7 @@ class Database {
       'dbname'    => $settings['db']
     );
 
-    $db = Zend_Db::factory($settings['adapter'], $db_settings); 
+    $db = Zend_Db::factory($settings['adapter'], $setup); 
 
     try {
       $db->getConnection();

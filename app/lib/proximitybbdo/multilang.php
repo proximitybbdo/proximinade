@@ -18,11 +18,9 @@ class Multilang {
 
   public $langs = array();
   private $lang = ''; 
-  private $defaultLang = '';
+  private $default_lang = '';
 
-  private function __construct() {
-    $this->lang = '';
-  }
+  private function __construct() {}
 
   public function __clone() {
     trigger_error( "Cannot clone instance of Singleton pattern ...", E_USER_ERROR );
@@ -44,9 +42,9 @@ class Multilang {
   /**
    * Parse the language files and set the default lang
    */
-  public function init($lang_dir, $defaultLang = 'nl-BE') {
-    $this->defaultLang = $defaultLang;
-    $this->setlang($defaultLang);
+  public function init($lang_dir, $default_lang = 'nl-BE') {
+    $this->default_lang = $default_lang;
+    $this->set_lang($default_lang);
 
     // Parse languages
     foreach (glob($lang_dir . '/*.yml') as $filename) {
@@ -113,7 +111,7 @@ class Multilang {
    * Switch back to the default language
    */
   public function set_default_lang() {
-    $this->setLang($this->defaultLang);
+    $this->set_lang($this->default_lang);
   }
 
   /**
@@ -221,10 +219,10 @@ function _t($key, $var1 = '', $var2 = true) {
     $echo = $var2;
 
     if(strlen($var1) == 0)
-      $var1 = Multilang::getInstance()->getLang();
+      $var1 = Multilang::get_instance()->get_lang();
   }
 
-  $value = Multilang::getInstance()->_t($key, Multilang::getInstance()->iso_lang($var1));
+  $value = Multilang::get_instance()->_t($key, Multilang::get_instance()->iso_lang($var1));
 
   return $value;
 }
@@ -234,5 +232,5 @@ function _t($key, $var1 = '', $var2 = true) {
  * for easy of use, works with regexp for dynamic values
  */
 function _d($key, $regexp = null, $params = null, $echo = true) {
-  return Multilang::getInstance()->_d($key, $regexp, $params);
+  return Multilang::get_instance()->_d($key, $regexp, $params);
 }

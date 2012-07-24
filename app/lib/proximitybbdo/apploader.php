@@ -40,6 +40,7 @@ class ProximityApp {
     $lang_dir_setting = array_key_exists('dir', ProximityApp::$settings['multilang']) ? ProximityApp::$settings['multilang']['dir'] : '';
     $lang_dir = strlen($lang_dir_setting) > 0 ? $lang_dir_setting : 'assets/locales/';
     $lang_dir = dirname(__FILE__) . '/../../../' . $lang_dir;
-    Multilang::getInstance()->init($lang_dir);
+
+    Multilang::get_instance()->init($lang_dir);
   }
 }
