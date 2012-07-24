@@ -5,7 +5,6 @@
  *
  * Handles translation through yaml files
  * 
- * v0.1
  * @package proximitybbdo
  */
 # ============================================================================ #
@@ -92,6 +91,7 @@ class Multilang {
 
   /**
    * Change the default language multilang translates against
+   *
    * @param string $lang the new language
    */
   public function set_lang($lang) {
@@ -101,6 +101,7 @@ class Multilang {
 
   /**
    * Return the current language
+   *
    * @return string
    */
   public function get_lang() {
@@ -115,11 +116,11 @@ class Multilang {
   }
 
   /**
-   * Main function of this class, gets the responding string for a given
-   * key, in the current language. Change the language by using lang()
+   * Gets the responding string for a given key
    *
    * @param string $key the key of the translated string
    * @param string $lang (optional) lang key
+   *
    * @return string
    */
   public function _t($key, $lang = '') {
@@ -129,16 +130,19 @@ class Multilang {
   }
 
   /**
-   * Main function of this class, gets the responding string for a given
-   * key, in the current language. Change the language by using lang()
+   * Gets the responding string for a given key, but with
+   * a dynamic twist
    *
    * @param string $key the key of the translated string
    * @param string $regexp a regular expression update dynamic values
    * @param string $params the params to replace the the regexp matches
+   * @param string $lang (optional) lang key
    *
    * @return string
    */
-  public function _d($key, $regexp, $params) {
+  public function _d($key, $regexp, $params, $lang = '') {
+    $lang = strlen($lang) == 0 ? $this->lang : $this->iso_lang($lang);
+
     if(isset($regexp)) {
       $value = $this->langs[$this->lang][$key];
       $value = preg_replace($regexp, $params, $value);
@@ -146,7 +150,7 @@ class Multilang {
       return $value;
     }
 
-    return $this->langs[$this->lang][$key];
+    return new MultiLangKey($this->langs[$lang][$key]);
   }
 
   /**
