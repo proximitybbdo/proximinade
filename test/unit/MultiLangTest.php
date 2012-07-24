@@ -77,6 +77,20 @@ class MultiLangTest extends PHPUnit_Framework_TestCase {
 
   public function testGlobalD() {
     $this->assertEquals('all your base belongs to jeroen bourgois', (string) _d('dynamic', '/US/', 'jeroen bourgois'));
+    $this->assertEquals('the quick brown fox jumps over the lazy dog',
+      (string) _d(
+        'dynamic_crazy', 
+        array('/1/', '/2/', '/3/', '/4/', '/5/'),
+        array('quick', 'brown', 'fox', 'lazy', 'dog')
+      )
+    );
+    $this->assertEquals('the scooby scooby scooby jumps over the scooby scooby',
+      (string) _d(
+        'dynamic_crazy', 
+        array('/1/', '/2/', '/3/', '/4/', '/5/'),
+        'scooby'
+      )
+    );
   }
 
   public function testGlobalDChaining() {

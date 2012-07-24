@@ -8,6 +8,7 @@
 title: Dit is een titel in het Nederlands
 
 dynamic: Dit is een % titel
+dynamic_crazy: the 1 2 3 jumps over the 4 5
 
 contact:
   title: "Contact titel"

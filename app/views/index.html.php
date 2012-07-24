@@ -166,6 +166,26 @@
   <code>String in yaml: 'Dit is een % titel' <br />echo _d('dynamic', '/%/', 'dynamic coolness');</code>
 
   <p class="result"><?php echo _d('dynamic', '/%/', 'dynamic coolness'); ?></p>
+
+  <p>Take it further with arrays of regular expressions and replacements. Consider this key:</p>
+
+  <code>the 1 2 3 jumps over the 4 5</code>
+
+  <p>Apply the following code to get a more complex replaced output</p>
+
+  <code>
+    _d('dynamic_crazy', array('/1/', '/2/', '/3/', '/4/', '/5/'), array('quick', 'brown', 'fox', 'lazy', 'dog'))
+  </code>
+  <p>will result in:</p>
+  <p class="result">the quick brown fox jumps over the lazy dog</p>
+  <p><strong>or</strong></p>
+  <code>_d('dynamic_crazy', array('/1/', '/2/', '/3/', '/4/', '/5/'), 'scooby');</code>
+
+  <p>will output:</p>
+  <p class="result">the scooby scooby scooby jumps over the scooby scooby</p>
+
+  <p><em>Note: the '/' are needed as the second parameter is a regular expression! And yes this means you can do crazy stuff like `'/^\s*{(\w+)}\s*=/'`</em></p>
+
 </section>
 
 <section>
