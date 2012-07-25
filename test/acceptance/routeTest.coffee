@@ -6,7 +6,7 @@ casper.start "http://dev.local/proximinade/home/", ->
 casper.then ->
   @test.assertTextExists 'another_page'
 
-casper.start "http://dev.local/proximinade/home/another_page#page", ->
+casper.thenOpen "http://dev.local/proximinade/home/another_page#page", ->
   @test.assertTextExists 'another_page'
 
 casper.run ->
