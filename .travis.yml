@@ -2,7 +2,7 @@ language: php
 php:
   - 5.3
   - 5.4
-script: phpunit --colors test/*
+script: phpunit --colors test/unit/*
 notifications:
   email:
     recipients:
