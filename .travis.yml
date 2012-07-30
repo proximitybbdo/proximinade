@@ -3,10 +3,18 @@ php:
   - 5.3
   - 5.4
 before_script:
+  # Packages installation
+  - sudo apt-get install -y --force-yes apache2 libapache2-mod-php5 php5-mysql php5-sqlite
+  # Apache webserver configuration
+  - sudo a2enmod rewrite
+  - sudo sed -i 's/Listen 80/Listen 3000/' /etc/apache2/httpd.conf
+  - sudo /etc/init.d/apache2 restart
   - git clone git://github.com/n1k0/casperjs.git
+  - sleep 3
   - cd casperjs
   - git checkout tags/1.0.0-RC1
   - sudo ln -sf `pwd`/bin/casperjs /usr/local/bin/casperjs
+  - sleep 3
   - cd ~/builds/proximitybbdo/proximinade
   - "export PHANTOMJS_EXECUTABLE='phantomjs --local-to-remote-url-access=yes --ignore-ssl-errors=yes'"
   - "export DISPLAY=:99.0"
@@ -19,4 +27,4 @@ notifications:
     recipients:
       - jeroen.bourgois@proximity.bbdo.be
       - info@jeroenbourgois.be
-      - pieter.michels@proximity.bbdo.be
+      # - pieter.michels@proximity.bbdo.be
