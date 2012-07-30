@@ -11,8 +11,8 @@ include_once('proximitybbdo/multilang.php');
 class MultiLangTest extends PHPUnit_Framework_TestCase {
 
   protected function setUp() {
-    $this->langDir = dirname(__FILE__) . '/fixtures/locales';
-    MultiLang::get_instance()->init($this->langDir);
+    $this->lang_dir = dirname(__FILE__) . '/fixtures/locales';
+    MultiLang::get_instance()->init($this->lang_dir);
   }
 
   protected function tearDown() {
@@ -28,14 +28,14 @@ class MultiLangTest extends PHPUnit_Framework_TestCase {
   }
 
   public function testInitWithDefaultLangSetsLangToFRBE() {
-    MultiLang::get_instance()->init($this->langDir, 'fr-BE');
+    MultiLang::get_instance()->init($this->lang_dir, 'fr-BE');
     $this->assertEquals('fr-BE', MultiLang::get_instance()->get_lang());
   }
 
   public function testInitIncreasesLangs() {
     MultiLang::get_instance()->destroy();
     $this->assertCount(0, MultiLang::get_instance()->langs);
-    MultiLang::get_instance()->init($this->langDir);
+    MultiLang::get_instance()->init($this->lang_dir);
     $this->assertCount(2, MultiLang::get_instance()->langs);
   }
 

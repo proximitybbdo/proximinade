@@ -13,11 +13,10 @@
  */
 # ============================================================================ #
 
-// Require spyc for YAML parsing.
 require_once(dirname(dirname(__FILE__)) . "/spyc/spyc.php");
-
-// multilang dependency
 require_once('multilang.php');
+require_once('db.php');
+require_once('limonade/helpers.php');
 
 class ProximityApp {
   public static $settings = array();

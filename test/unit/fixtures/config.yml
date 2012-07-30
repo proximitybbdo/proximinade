@@ -5,28 +5,28 @@ admin:
   login: 
   password: 
 
+batman: nananananananana
+
 # ============================================================================ #
 # Database settings
 # ============================================================================ #
 db:
-  adapter: mysqli
+  adapter: pdo_sqlite
   host: 127.0.0.1
-  db: bgc_ezine
-  user: bgcezine
-  password: ddt4ever
+  dbname: 'test/unit/fixtures/db.sqlite'
 
 db_STAGING:
   adapter: mysqli
   host: localhost
-  db: database
-  user: user_name
+  dbname: database
+  username: user_name
   password: password
 
 db_PRODUCTION:
   adapter: mysqli
   host: localhost
-  db: database
-  user: user_name
+  dbname: database
+  username: user_name
   password: password
 
 # ============================================================================ #
