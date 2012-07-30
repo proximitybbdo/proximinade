@@ -2,7 +2,11 @@ language: php
 php:
   - 5.3
   - 5.4
-script: phpunit --colors test/unit/*
+before_script:
+  - "export PHANTOMJS_EXECUTABLE='phantomjs --local-to-remote-url-access=yes --ignore-ssl-errors=yes'"
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+script: make test
 notifications:
   email:
     recipients:

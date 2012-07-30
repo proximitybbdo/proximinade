@@ -4,7 +4,7 @@ test-unit-guard:
 	guard
 
 test-unit:
-	phpunit --colors test/unit
+	phpunit --colors test/unit/*
 
 test-acceptance:
 	casperjs test/acceptance/*
