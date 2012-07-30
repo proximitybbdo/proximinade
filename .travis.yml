@@ -3,14 +3,12 @@ php:
   - 5.3
   - 5.4
 before_script:
-  # Packages installation
-  - sudo apt-get install -y --force-yes apache2 libapache2-mod-php5 php5-mysql php5-sqlite
-  # Apache webserver configuration
-  - sudo a2enmod rewrite
-  - sudo sed -i 's/Listen 80/Listen 3000/' /etc/apache2/httpd.conf
-  - sudo /etc/init.d/apache2 restart
-  - git clone git://github.com/n1k0/casperjs.git
+  - apt-get install nginx
+  - apt-get install php5-fpm
+  - cp .travis_nginx.conf /etc/nginx/nginx.conf
+  - /etc/init.d/nginx restart
   - sleep 3
+  - git clone git://github.com/n1k0/casperjs.git
   - cd casperjs
   - git checkout tags/1.0.0-RC1
   - sudo ln -sf `pwd`/bin/casperjs /usr/local/bin/casperjs
