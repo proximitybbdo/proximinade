@@ -3,6 +3,7 @@ php:
   - 5.3
   - 5.4
 before_script:
+  - pwd
   - sudo apt-get install nginx
   - sudo apt-get install php5-fpm
   - sudo cp .travis.nginx.conf /etc/nginx/nginx.conf
