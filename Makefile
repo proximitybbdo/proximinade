@@ -8,9 +8,6 @@ test-unit:
 
 test-acceptance:
 	# casperjs test/acceptance/*
-	pwd
-	ls -la /home/vagrant
-	ls -la /home
 
 test: test-unit test-acceptance
 
