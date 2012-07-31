@@ -1,5 +1,4 @@
 casper = require('casper').create()
-fs = require 'fs'
 
 casper.start "http://localhost:3000/", ->
   @test.comment 'Starting Proximinade integration test'
@@ -32,10 +31,9 @@ casper.thenOpen "http://localhost:3000/nl-BE/very/deep/link", ->
 
 casper.then ->
   @test.comment 'PRODUCTION file should cause _env to be in production'
-  @test.asserTextExist 'Env: PRODUCTION'
-
-# casper.thenOpen "http://localhost:3000/home/another_page#page", ->
-#   @test.assertTextExists 'another_page'
+  @test.assertTextExist 'Env: PRODUCTION', 'We are in PRODUCTION mode'
+  @test.comment 'STAGING file should not take over PRODUCTION if PRODUCTION file exists'
+  @test.assertTextExist 'Env: PRODUCTION', 'We are in PRODUCTION mode'
 
 casper.run ->
   @test.renderResults true
