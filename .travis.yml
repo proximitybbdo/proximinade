@@ -22,6 +22,7 @@ before_script:
   - sleep 3
   - curl http://localhost:3000
   - curl http://127.0.0.1:3000
+  - curl http://127.0.0.1
 script: make test
 
 notifications:
