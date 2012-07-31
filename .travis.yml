@@ -8,13 +8,14 @@ before_script:
   - sudo a2enmod rewrite
   - sudo service apache2 restart
   - sleep 1
+  - cat /etc/apache2/apache2.conf
 
   # - git clone git://github.com/n1k0/casperjs.git
   # - cd casperjs
   # - git checkout tags/1.0.0-RC1
   # - sudo ln -sf `pwd`/bin/casperjs /usr/local/bin/casperjs
   # - sleep 3
-  - sed -i 's/Listen 80/Listen 3000/g' /etc/apache2/httpd.conf
+  - sed -i 's/Listen 80/Listen 3000/g' /etc/apache2/apache2.conf
   - cd /home/vagrant/builds/proximitybbdo/proximinade
   - echo "$(curl -fsSL https://raw.github.com/gist/3214764/51e2f8525589fafcf71f8bbcb7138f5dfd7b5d8a/vhost-proximinade-travisci.txt)" | sed -e "s,PATH,`pwd`/web,g" | sudo tee /etc/apache2/sites-available/default > /dev/null
   - "export PHANTOMJS_EXECUTABLE='phantomjs --local-to-remote-url-access=yes --ignore-ssl-errors=yes'"
