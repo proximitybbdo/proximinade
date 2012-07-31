@@ -10,7 +10,7 @@ test-acceptance:
 	# casperjs test/acceptance/*
 	pwd
 	ls -la /home/vagrant/builds
-	ls -la /home/vagrant/builds/proxmitybbdo
+	ls -la /home/vagrant/builds/proximitybbdo
 
 test: test-unit test-acceptance
 
