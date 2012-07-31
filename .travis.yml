@@ -6,7 +6,6 @@ before_script:
   - sudo apt-get install apache2
   - sudo a2enmod actions
   - sudo a2enmod rewrite
-  - sudo cp .travis.nginx.conf /etc/nginx/nginx.conf
   - sudo service apache2 restart
   - sleep 1
 
