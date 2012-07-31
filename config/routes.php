@@ -3,16 +3,11 @@
 /**
  * Standard routes. Change to what you really need.
  */
-dispatch('/', 'index');
+dispatch('/:lang', 'index');
 
-dispatch('/home', 'index'); // example
+dispatch_post('index_post', 'index_post');
 
-dispatch(':page', 'pages'); // dispatch all other pages to pages controller. Easy for templating.
-
-/**
- * This should be the last route definition
- */
-dispatch('/**', 'index_catchall'); 
+dispatch(':lang/:page', 'pages'); // dispatch all other pages to pages controller. Easy for templating.
 
 /**
  * Function is called before every route is sent to his handler.
