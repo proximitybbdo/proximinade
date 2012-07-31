@@ -9,21 +9,21 @@ admin:
 # Database settings
 # ============================================================================ #
 db:
-  adapter: mysqli
+  adapter: pdo_mysql
   host: localhost
   dbname: database
   username: user_name
   password: password
 
 db_STAGING:
-  adapter: mysqli
+  adapter: pdo_mysql
   host: localhost
   dbname: database
   username: user_name
   password: password
 
 db_PRODUCTION:
-  adapter: mysqli
+  adapter: pdo_mysql
   host: localhost
   dbname: database
   username: user_name
