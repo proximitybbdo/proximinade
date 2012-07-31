@@ -1,4 +1,5 @@
 casper = require('casper').create()
+fs = require 'fs'
 
 casper.start "http://localhost:3000/", ->
   @test.comment 'Starting Proximinade integration test'
@@ -28,6 +29,10 @@ casper.then ->
 casper.thenOpen "http://localhost:3000/nl-BE/very/deep/link", ->
   @test.assertHttpStatus 200, 'Very deep link responds'
   @test.assertTextExists 'verydeeplink', '_page() + _page(1) + _(2) should match `verydeeplink`'
+
+casper.then ->
+  @test.comment 'PRODUCTION file should cause _env to be in production'
+  @test.asserTextExist 'Env: PRODUCTION'
 
 # casper.thenOpen "http://localhost:3000/home/another_page#page", ->
 #   @test.assertTextExists 'another_page'

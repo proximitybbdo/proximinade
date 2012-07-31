@@ -12,6 +12,7 @@
         <div class="container" id="langswitch">
           <ul class="nav pull-right">
             <li><a href="#"><strong>Current lang:</strong> <span id="lang"><?php echo $lang; ?></span></a></li>
+            <li><a href="#"><strong>Env:</strong> <span id="lang"><?php echo option('env'); ?></span></a></li>
           </ul>
           <ul class="nav">
             <li><a id="nl" href="<?php echo url_for('/nl-BE/index'); ?>">Nederlands</a></li>
