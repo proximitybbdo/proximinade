@@ -7,7 +7,7 @@ test-unit:
 	phpunit --colors test/unit/*
 
 test-acceptance:
-	# casperjs test/acceptance/*
+	casperjs test/acceptance/*
 
 test: test-unit test-acceptance
 
