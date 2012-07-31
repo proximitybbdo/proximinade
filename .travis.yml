@@ -21,6 +21,8 @@ before_script:
   - "sh -e /etc/init.d/xvfb start"
   - sleep 3
   - curl http://localhost:3000
+  - cat /var/log/nginx.access.log;
+  - cat /var/log/nginx.error.log;
 script: make test
 
 notifications:
