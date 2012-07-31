@@ -6,7 +6,7 @@ before_script:
   - sudo apt-get install apache2
   - sudo a2enmod actions
   - sudo a2enmod rewrite
-  - sudo echo 'Listen 3000' >> /etc/apache2/ports.conf
+  - echo "Listen 3000" | sudo tee /etc/apache2/ports.conf > /dev/null
   - cd /home/vagrant/builds/proximitybbdo/proximinade
   - echo "$(curl -fsSL https://raw.github.com/gist/3214764/51e2f8525589fafcf71f8bbcb7138f5dfd7b5d8a/vhost-proximinade-travisci.txt)" | sed -e "s,PATH,`pwd`/web,g" | sudo tee /etc/apache2/sites-available/default > /dev/null
   - sudo service apache2 restart
