@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8" />
 	
-	<title>ProximityBBDOWebFramework</title>
+	<title><?php echo _t('title'); ?></title>
 
   <style type="text/css">
     body{background-color:#efefef;font:18px Arial,sans-serif;text-shadow:1px 1px 1px white;width:800px;margin:0 auto;padding:40px;line-height:1.6;}
@@ -19,7 +19,14 @@
     a{ color: #e4002d; text-decoration: none; border-bottom: 1px solid #e4002d; }
   </style>
 </head>
-<body>
+<body id="<?php echo $lang; ?>">
+
+  <header>
+    <div id="langswitch">
+      <a id="nl" href="<?php echo url_for('/nl-BE/index'); ?>">Nederlands</a>
+      <a id="fr" href="<?php echo url_for('/fr-BE/index'); ?>">Francais</a>
+    </div>
+  </header>
 
   <div id="main">
 		<?php echo($content); ?>

@@ -1,17 +1,2 @@
-# ------------------------------------------------------------------------- #
-# Start translating
-# syntax is really simple
-# key: value
-# 
-# More info @ http://yaml.org/spec/1.1/
-# ------------------------------------------------------------------------- #
-title: Ceci est un titre en français 
 
-dynamic: Ceci est un un titre tres % 
-dynamic_crazy: the 1 2 3 jumps over the 4 5
-
-contact:
-  title: "Contact titre"
-  sex:
-    - M
-    - F
+title: Proximinade Test d'Integration
