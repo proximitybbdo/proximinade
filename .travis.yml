@@ -14,14 +14,13 @@ before_script:
   # add virtual host
   - cd /home/vagrant/builds/proximitybbdo/proximinade
   - echo "$(curl -fsSL https://raw.github.com/gist/3214764/51e2f8525589fafcf71f8bbcb7138f5dfd7b5d8a/vhost-proximinade-travisci.txt)" | sed -e "s,PATH,`pwd`,g" | sudo tee /etc/apache2/sites-available/default > /dev/null
-  - sudo cat /etc/apache2/sites-available/default
   # restart apache
   - sudo service apache2 restart
   - sleep 1
   # install capserjs
   - git clone git://github.com/n1k0/casperjs.git
   - cd casperjs
-  - git checkout tags/1.0.0-RC1
+  - git checkout -b tags/1.0.0-RC1
   - sudo ln -sf `pwd`/bin/casperjs /usr/local/bin/casperjs
   - sleep 3
   - "export PHANTOMJS_EXECUTABLE='phantomjs --local-to-remote-url-access=yes --ignore-ssl-errors=yes'"
@@ -37,4 +36,4 @@ notifications:
     recipients:
       - jeroen.bourgois@proximity.bbdo.be
       - info@jeroenbourgois.be
-      # - pieter.michels@proximity.bbdo.be
+      - pieter.michels@proximity.bbdo.be
