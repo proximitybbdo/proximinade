@@ -7,6 +7,8 @@ dispatch('/:lang', 'index');
 
 dispatch_post('index_post', 'index_post');
 
+dispatch(':lang/very/deep/link', 'very_deep_link');
+
 dispatch(':lang/:page', 'pages'); // dispatch all other pages to pages controller. Easy for templating.
 
 /**

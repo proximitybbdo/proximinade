@@ -30,7 +30,7 @@ before_script:
   - sleep 3
   # change to home dir
   - cd /home/vagrant/builds/proximitybbdo/proximinade
-script: make test
+script: make test-acceptance
 
 notifications:
   email:
