@@ -502,7 +502,8 @@ function env($reset = null)
       if(!array_key_exists($varname, $GLOBALS)) $GLOBALS[$varname] = array();
       $env[$var] =& $GLOBALS[$varname];
     }
-
+    
+    return;
     $method = request_method($env);
     if($method == 'PUT' || $method == 'DELETE')
     {
@@ -986,6 +987,7 @@ function request_methods()
 function request_uri($env = null)
 {
   static $uri = null;
+  
   if(is_null($env))
   {
     if(!is_null($uri)) return $uri;

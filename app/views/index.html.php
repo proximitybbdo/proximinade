@@ -84,9 +84,9 @@
   <h2>MultiLang</h2>
 
   <h3>The current language can be fetched through<br>
-  Multilang::getInstance()->getLang(), or through the short var $lang</h3>
+  Multilang::get_instance()->getLang(), or through the short var $lang</h3>
 
-  <p><em>Note: the short var is set on the before() call, so all changes during the build of a page (as above), will not be reflected. To get the most up to date result, use the longer Multilang::getInstance()->getLang() version.</em></p>
+  <p><em>Note: the short var is set on the before() call, so all changes during the build of a page (as above), will not be reflected. To get the most up to date result, use the longer Multilang::get_instance()->getLang() version.</em></p>
 
   <code>echo($lang);</code>
 
@@ -94,9 +94,9 @@
 
   <p class="result"><?php echo($lang); ?></p>
 
-  <code>echo Multilang::getInstance()->getLang();</code>
+  <code>echo Multilang::get_instance()->get_lang();</code>
 
-  <p class="result"><?php echo(Multilang::getInstance()->getLang()); ?></p>
+  <p class="result"><?php echo(Multilang::get_instance()->get_lang()); ?></p>
   
   <h3>First trying out Multilang with the default language</h3>
 
@@ -106,17 +106,17 @@
 
   <h3>Then change the lang and output again</h3>
 
-  <code>Multilang::getInstance()->lang('fr-BE');</code>
+  <code>Multilang::get_instance()->lang('fr-BE');</code>
 
   <p>or</p>
 
-  <code>Multilang::getInstance()->lang('fr');</code>
+  <code>Multilang::get_instance()->lang('fr');</code>
 
   <p>and</p>
 
   <code>echo _t('title');</code>
 
-  <p class="result"> <?php Multilang::getInstance()->setLang('fr'); echo _t('title'); ?> </p>
+  <p class="result"> <?php Multilang::get_instance()->set_lang('fr'); echo _t('title'); ?> </p>
 
   <h3>Now we use the same _t() function, but with an extra language parameter</h3>
 
@@ -130,9 +130,9 @@
 
   <h3>Switch back to default language</h3>
 
-  <code>Multilang::getInstance()->defaultLang();</code>
+  <code>Multilang::get_instance()->set_default_lang();</code>
 
-  <?php Multilang::getInstance()->defaultLang(); ?>
+  <?php Multilang::get_instance()->set_default_lang(); ?>
 
   <h3>Chain it!</h3>
 
@@ -142,7 +142,6 @@
 
   <p class="result"><?php echo _t('contact')->t('title'); ?></p>
 
-  <p>You have to give 'false' as 2nd argument so the _t function won't echo the result</p>
   <p>The language parameter will still work:</p>
 
   <code>echo _t('contact', 'fr-BE')->t('title');</code>
@@ -164,9 +163,29 @@
 
   <h3>There is also an _d() function, that can replace a dynamic value using a regular expression</h3>
 
-  <code>echo _d('dynamic', '/%/', 'dynamic coolness');</code>
+  <code>String in yaml: 'Dit is een % titel' <br />echo _d('dynamic', '/%/', 'dynamic coolness');</code>
 
   <p class="result"><?php echo _d('dynamic', '/%/', 'dynamic coolness'); ?></p>
+
+  <p>Take it further with arrays of regular expressions and replacements. Consider this key:</p>
+
+  <code>the 1 2 3 jumps over the 4 5</code>
+
+  <p>Apply the following code to get a more complex replaced output</p>
+
+  <code>
+    _d('dynamic_crazy', array('/1/', '/2/', '/3/', '/4/', '/5/'), array('quick', 'brown', 'fox', 'lazy', 'dog'))
+  </code>
+  <p>will result in:</p>
+  <p class="result">the quick brown fox jumps over the lazy dog</p>
+  <p><strong>or</strong></p>
+  <code>_d('dynamic_crazy', array('/1/', '/2/', '/3/', '/4/', '/5/'), 'scooby');</code>
+
+  <p>will output:</p>
+  <p class="result">the scooby scooby scooby jumps over the scooby scooby</p>
+
+  <p><em>Note: the '/' are needed as the second parameter is a regular expression! And yes this means you can do crazy stuff like `'/^\s*{(\w+)}\s*=/'`</em></p>
+
 </section>
 
 <section>
@@ -395,20 +414,6 @@
     $a = new Actie();<br />
     $a->construct($_POST);<br />
   </code>
-
-  <h3>Database</h3>
-
-  <p>The BaseModel has also an internal link to the db_connection() function located in the config/helpers.php file.</p>
-
-  <code>
-    $a->get_db(); 
-  </code>
-
-  <p>And it is accessible as a static function as well:</p>
-
-  <code>Actie::_get_db();</code>
-  <p>or</p>
-  <code>BaseModel::_get_db();</code>
 
   <h3>Finders</h3>
 

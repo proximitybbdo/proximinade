@@ -1,0 +1,10 @@
+tmnt: Le chanson en FR, n'existe pas! Turle power!
+
+chain:
+  hangs: low
+
+dynamic_chain:
+  hangs:
+    low: all your base belongs to US
+
+dynamic: all your base belongs to FRANCE

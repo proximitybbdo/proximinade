@@ -1,8 +1,8 @@
 <?php
 
-class BaseModel {
-  public $db = NULL;
+include_once(dirname(__FILE__) . '/limonade/helpers.php');
 
+class BaseModel {
   public function construct($pdata, $prefix = NULL) {
     foreach($pdata as $fieldname => $value) {
       if(!is_null($prefix)) {
@@ -13,21 +13,5 @@ class BaseModel {
       } else if(property_exists($this, $fieldname))
         $this->{$fieldname} = $value;
     }
-  }
-
-  public function get_db() {
-    if(is_null($this->db))
-      $this->db = db_connection();
-
-    if(is_null($this->db))
-      $this->add_error('Could not connect to database.');
-    
-    return is_null($this->db) ? FALSE : $this->db;
-  }
-
-  protected static function _get_db() {
-    $d = new BaseModel();
-
-    return $d->get_db();
   }
 }

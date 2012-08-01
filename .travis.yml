@@ -1,0 +1,40 @@
+language: php
+php:
+  - 5.3
+  - 5.4
+before_script:
+  # install apache + php5
+  - sudo apt-get install apache2
+  - sudo apt-get install php5
+  - sudo apt-get install libapache2-mod-php5
+  - sudo a2enmod actions
+  - sudo a2enmod rewrite
+  # add port 3000
+  - echo "Listen 3000" | sudo tee /etc/apache2/ports.conf > /dev/null
+  # add virtual host
+  - cd /home/vagrant/builds/proximitybbdo/proximinade
+  - echo "$(curl -fsSL https://raw.github.com/gist/3214764/51e2f8525589fafcf71f8bbcb7138f5dfd7b5d8a/vhost-proximinade-travisci.txt)" | sed -e "s,PATH,`pwd`,g" | sudo tee /etc/apache2/sites-available/default > /dev/null
+  # restart apache
+  - sudo service apache2 restart
+  - sleep 1
+  # install capserjs
+  - git clone git://github.com/n1k0/casperjs.git
+  - cd casperjs
+  - git checkout -b tags/1.0.0-RC1
+  - sudo ln -sf `pwd`/bin/casperjs /usr/local/bin/casperjs
+  - sleep 3
+  # frame buffer
+  - "export PHANTOMJS_EXECUTABLE='phantomjs --local-to-remote-url-access=yes --ignore-ssl-errors=yes'"
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3
+  # change to home dir
+  - cd /home/vagrant/builds/proximitybbdo/proximinade
+script: make test
+
+notifications:
+  email:
+    recipients:
+      - jeroen.bourgois@proximity.bbdo.be
+      - info@jeroenbourgois.be
+      - pieter.michels@proximity.bbdo.be

@@ -20,10 +20,10 @@ function before($route) {
   // Set lang if first controller is a language
   $url_parts = _url_parts();
   
-  if(preg_match(Multilang::getInstance()->langs_as_regexp(), $url_parts[0]))
-    Multilang::getInstance()->setLang($url_parts[0]);
+  if(preg_match(Multilang::get_instance()->langs_as_regexp(), $url_parts[0]))
+    Multilang::get_instance()->set_lang($url_parts[0]);
 
-  set('lang', Multilang::getInstance()->getLang());
+  set('lang', Multilang::get_instance()->get_lang());
 
   if(function_exists('before_route'))
     before_route($route);  

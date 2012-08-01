@@ -1,26 +1,25 @@
 <?php
-# ============================================================================ #
-/**
- * Proximity Multilang lib
- *
- * Handles translation through xml files
- * 
- * v0.05
- * @package proximitybbdo
- */
-# ============================================================================ #
 
-class Multilang
-{
+/**
+ * Proximity MultiLang lib
+ *
+ * Handles translation through yaml files
+ * 
+ * @package proximitybbdo
+ * @namespace proximitybbdo
+ */
+
+include_once(dirname(__FILE__) . '/../spyc/spyc.php');
+
+class MultiLang {
+
   private static $instance = null;
 
-  private $lang = ''; 
   public $langs = array();
-  private $inited = false;
+  private $lang = ''; 
+  private $default_lang = '';
 
-  private function __construct() {
-    $this->lang = '';
-  }
+  private function __construct() {}
 
   public function __clone() {
     trigger_error( "Cannot clone instance of Singleton pattern ...", E_USER_ERROR );
@@ -30,13 +29,26 @@ class Multilang
   }
 
   /**
-   * Returns an instance of Multilan
+   * Returns an instance of MultiLang
    */
-  public static function getInstance() {
+  public static function get_instance() {
     if( self::$instance == null )
-      self::$instance = new Multilang();
+      self::$instance = new MultiLang();
 
     return self::$instance;
+  }
+
+  /**
+   * Parse the language files and set the default lang
+   */
+  public function init($lang_dir, $default_lang = 'nl-BE') {
+    $this->default_lang = $default_lang;
+    $this->set_lang($default_lang);
+
+    // Parse languages
+    foreach (glob($lang_dir . '/*.yml') as $filename) {
+      $this->langs[basename($filename, '.yml')] = spyc_load_file($filename);
+    }
   }
 
   public function iso_lang($lang) {
@@ -69,91 +81,69 @@ class Multilang
   }
 
   /**
-   * Parse the language files and set the default lang
-   */
-  public function init() {
-    if($this->inited == FALSE)
-      $this->inited = TRUE;
-    else
-      return;
-
-    $lang_dir_setting = array_key_exists('dir', ProximityApp::$settings['multilang']) ? ProximityApp::$settings['multilang']['dir'] : '';
-    $lang_dir = strlen($lang_dir_setting) > 0 ? $lang_dir_setting : 'assets/locales/';
-    $lang_dir = dirname(__FILE__) . '/../../../' . $lang_dir;
-
-    // Set default lang
-    $this->setlang(ProximityApp::$settings['multilang']['default']);
-
-    // Parse languages
-    foreach (glob($lang_dir . '*.yml') as $filename)
-      $this->langs[basename($filename, '.yml')] = spyc_load_file($filename);
-  }
-
-  /**
    * Destroy the language array and any other variables
    */
   public function destroy() {
-    /* unset($this->lang); */
+    unset($this->langs);
+    $this->langs = array();
     return TRUE;
   }
 
   /**
    * Change the default language multilang translates against
+   *
    * @param string $lang the new language
    */
-  public function setLang($lang) {
+  public function set_lang($lang) {
     $this->lang = $this->iso_lang($lang);
     $this->set_time_locale();
   }
 
   /**
    * Return the current language
+   *
    * @return string
    */
-  public function getLang() {
+  public function get_lang() {
     return $this->lang;
   }
 
   /**
    * Switch back to the default language
    */
-  public function defaultLang() {
-    $this->setLang(ProximityApp::$settings['multilang']['default']);
+  public function set_default_lang() {
+    $this->set_lang($this->default_lang);
   }
 
   /**
-   * Main function of this class, gets the responding string for a given
-   * key, in the current language. Change the language by using lang()
+   * Gets the responding string for a given key
    *
    * @param string $key the key of the translated string
    * @param string $lang (optional) lang key
-   * @return string
+   *
+   * @return MultiLangKey
    */
-  public function _t($key, $lang = '') {
-    $lang = strlen($lang) == 0 ? $this->lang : $this->iso_lang($lang);
-
+  public function _t($key, $lang) {
+    echo $lang;
     return new MultiLangKey($this->langs[$lang][$key]);
   }
 
   /**
-   * Main function of this class, gets the responding string for a given
-   * key, in the current language. Change the language by using lang()
+   * Gets the responding string for a given key, but with
+   * a dynamic twist
    *
    * @param string $key the key of the translated string
    * @param string $regexp a regular expression update dynamic values
    * @param string $params the params to replace the the regexp matches
+   * @param string $lang (optional) lang key
    *
    * @return string
    */
-  public function _d($key, $regexp, $params) {
-    if(isset($regexp)) {
-      $value = $this->langs[$this->lang][$key];
-      $value = preg_replace($regexp, $params, $value);
+  public function _d($key, $regexp, $params, $lang) {
+    $value = $this->langs[$lang][$key];
+    $value = preg_replace($regexp, $params, $value);
 
-      return $value;
-    }
-
-    return $this->langs[$this->lang][$key];
+    return $value;
   }
 
   /**
@@ -170,6 +160,7 @@ class Multilang
 
   /**
    * Get count of languages available
+   *
    * @return int
    */
   public function get_lang_count() {
@@ -199,14 +190,10 @@ class MultiLangKey extends ArrayObject {
   }
 
   private function __d($key, $regexp, $params) {
-    if(isset($regexp)) {
-      $value = $this->_data[$key];
-      $value = preg_replace($regexp, $params, $value);
+    $value = $this->_data[$key];
+    $value = preg_replace($regexp, $params, $value);
 
-      return $value;
-    }
-
-    return new MultiLangKey($this->_data[$key]);
+    return $value;
   }
 
   public function __toString() {
@@ -215,35 +202,34 @@ class MultiLangKey extends ArrayObject {
 }
 
 /**
- * Helper _t function defined outside of the multilang class for ease of use,
- * pass language as second parameter for specific translation of key
- * and pass false as 2nd or 3rd parameter to return value instead
+ * Gets the responding string for a given key
+ *
+ * @param string $key the key of the translated string
+ * @param string $lang (optional) lang key
+ *
+ * @return string
  */
-function _t($key, $var1 = '', $var2 = true) {
-  if(is_bool($var1))
-    $echo = (bool) $var1;
-  else {
-    $echo = $var2;
+function _t($key, $lang = '') {
+  $lang = strlen($lang) == '' ? MultiLang::get_instance()->get_lang() : MultiLang::get_instance()->iso_lang($lang);
 
-    if(strlen($var1) == 0)
-      $var1 = Multilang::getInstance()->getLang();
-  }
+  $value = MultiLang::get_instance()->_t($key, $lang);
 
-  $value = Multilang::getInstance()->_t($key, Multilang::getInstance()->iso_lang($var1));
-
-  // if(!$echo) 
   return $value;
-
-  // echo($value);
 }
 
 /**
- * Helper _d function defined outside of the multilang class
- * for easy of use, works with regexp for dynamic values
+ * Gets the responding string for a given key, but with
+ * a dynamic twist
+ *
+ * @param string $key the key of the translated string
+ * @param string $regexp a regular expression update dynamic values
+ * @param string $params the params to replace the the regexp matches
+ * @param string $lang (optional) lang key
+ *
+ * @return string
  */
-function _d($key, $regexp = null, $params = null, $echo = true) {
-  // if(!$echo)
-  return Multilang::getInstance()->_d($key, $regexp, $params);
-  
-  // echo(Multilang::getInstance()->_d($key, $regexp, $params));
+function _d($key, $regexp, $params, $lang = '') {
+  $lang = strlen($lang) == '' ? MultiLang::get_instance()->get_lang() : MultiLang::get_instance()->iso_lang($lang);
+
+  return MultiLang::get_instance()->_d($key, $regexp, $params, $lang);
 }
