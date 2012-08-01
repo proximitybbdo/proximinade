@@ -19,12 +19,9 @@
     a{ color: #e4002d; text-decoration: none; border-bottom: 1px solid #e4002d; }
   </style>
 
-<style type="text/css" media="print">
-body {
-
-background-color: red;
-}
-</style>
+  <style type="text/css" media="print">
+    body { background-color: #fff; }
+  </style>
 
 </head>
 <body>

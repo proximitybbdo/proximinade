@@ -24,27 +24,68 @@ function before_route($route) {
 /**
  * Function is called before output is sent to browser.
  */
-include_once('pdfcrowd/pdfcrowd.php');
+include_once('tcpdf/tcpdf.php');
+include_once('fpdi/fpdi.php');
+
+class PDF extends FPDI {
+    /**
+     * "Remembers" the template id of the imported page
+     */
+    var $_tplIdx;
+    
+    /**
+     * include a background template for every page
+     */
+    function Header() {
+            $this->setSourceFile(dirname(__FILE__) . '/../assets/pdf/template.pdf');
+        if (is_null($this->_tplIdx)) {
+            $this->_tplIdx = $this->importPage(1);
+        }
+        $this->useTemplate($this->_tplIdx);
+    }
+    
+    function Footer() {}
+}
+
 function after_route($output) {
-  try {   
-    // create an API client instance
-    $client = new Pdfcrowd("jeroenbourgois", "31a10f47de4f3a83e03697afe9fe56ca");
+  // // create new PDF document
+  $pdf = new PDF();
 
-    // convert a web page and store the generated PDF into a $pdf variable
-    $client->usePrintMedia(true);
-    $pdf = $client->convertHtml($output);
+  // // set document information
+  $pdf->SetCreator(PDF_CREATOR);
+  $pdf->SetAuthor('Jeroen Bourgois');
+  $pdf->SetTitle('TCPDF Example');
+  $pdf->SetSubject('TCPDF Tutorial');
+  $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
 
-    // set HTTP response headers
-    header("Content-Type: application/pdf");
-    header("Cache-Control: no-cache");
-    header("Accept-Ranges: none");
-    header("Content-Disposition: attachment; filename=\"proximinade.pdf\"");
+  //set margins
+  $pdf->SetMargins(5, 5, 5);
+  $pdf->SetHeaderMargin(0);
+  $pdf->SetFooterMargin(0);
 
-    // send the generated PDF 
-    echo $pdf;
-  } catch(PdfcrowdException $why) {
-    echo "Pdfcrowd Error: " . $why;
-  }
+  //set auto page breaks
+  $pdf->SetAutoPageBreak(true, 5);
 
-return $output;
+  // $pdf->setPrintHeader(false);
+  $pdf->setPrintFooter(false);
+
+  // add a page
+  $pdf->AddPage();
+  // $pdf->writeHTML($output);
+
+  // write text
+  $pdf->SetFont('helvetica', '', 12);
+  $pdf->SetTextColor(0);
+  $pdf->SetXY(27, 125);
+  $pdf->Cell(0, 0, "Jeroen Bourgois");
+  $pdf->SetXY(62, 125);
+  $pdf->Cell(0, 0, "Early Bird (EUR 55.00)");
+  $pdf->SetFont('helvetica', '', 8);
+  $pdf->SetXY(110, 125);
+  $pdf->MultiCell(12, 0, "MULTI\nLINE", 1, 'C');
+  $pdf->write2DBarcode('http://ha.ckers.org/images/slowloris.pngi', 'DATAMATRIX', 130, 119, 20, 20);
+
+  $pdf->Output('bla.pdf', 'I');
+
+  return $output;
 }
