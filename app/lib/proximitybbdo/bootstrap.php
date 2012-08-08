@@ -16,28 +16,35 @@ require_once('limonade.php');
 date_default_timezone_set('Europe/Brussels');
 
 // Load all Proximity BBDO libraries.
-foreach (glob($lib_directory . 'proximitybbdo/*.php') as $filename)
+foreach (glob($lib_directory . 'proximitybbdo/*.php', GLOB_NOSORT) as $filename)
   require_once($filename);
 
-// Load all Limonade startip files.
-foreach (glob($lib_directory . 'proximitybbdo/limonade/*.php') as $filename)
+// Load all sub lib files.
+foreach (glob($lib_directory . 'proximitybbdo/[!(vi)]*/*.php', GLOB_NOSORT) as $filename)
   require_once($filename);
 
-// Include Zend Loader class.
-// Load librarues like this: ``Zend_Loader::loadClass('Zend_Db');``
+/**
+ * Include Zend Loader class.
+ * Load libraries like this: ``Zend_Loader::loadClass('Zend_Db');``
+ */
 require_once('Zend/Loader.php');
 
-// Basic config files needed to boot the application.
+/**
+ * basic config files needed to boot the application.
+ */
 require_once('bootstrap.php');
 require_once('helpers.php');
 require_once('routes.php');
 
-// Models if exists
-if(file_exists($app_directory . 'models/')) {
-  foreach (glob($app_directory . 'models/*.php') as $filename)
-    require_once($filename);
-}
+/**
+ * Load all models
+ */
+foreach (glob($app_directory . 'models/*.php', GLOB_NOSORT) as $filename)
+  require_once($filename);
 
+/**
+ * Get environment settings based on root files.
+ */
 function get_env() {
   global $root_directory;
   
@@ -45,7 +52,7 @@ function get_env() {
   $files = array();
   $envs = array('PRODUCTION', 'STAGING', 'DEVELOPMENT'); // priority order
 
-  foreach(glob($root_directory . '*') as $file)
+  foreach(glob($root_directory . '*', GLOB_NOSORT) as $file)
     array_push($files, basename($file));
 
   foreach($envs as $state) {
@@ -54,44 +61,6 @@ function get_env() {
   }
 
   return $env;
-}
-
-// sets the correct error reporting
-// depending on the environment (DEV / STAGING /  PRODUCTION)
-function set_error_reporting() {
-  if(get_env() === 'DEVELOPMENT') {
-    // Error reporting: report everything
-    error_reporting(E_ALL);
-  } else {
-    // Error reporting: report nothing, only fatal errors.
-    error_reporting(E_ALL & ~E_STRICT & ~E_WARNING & ~E_NOTICE & ~E_DEPRECATED);
-  }
-
-  // Display the errors when they occur.
-  ini_set('display_errors', 1);
-}
-
-function set_error_handling() {
-  error(E_LIM_HTTP, 'default_error_handler');
-}
-
-function default_error_handler($errno, $errstr, $errfile, $errline) {
-  global $app_directory, $lib_directory;
-
-  status($errno);
-
-  set('code', $errno);
-  set('errors', http_response_status_code($errno));
-  
-  if(_c('errors', 'custom_page'))
-    $html_file = (string) _c('errors', 'custom_page');
-  else
-    $html_file = '../lib/proximitybbdo/views/errors.html.php';
-
-  if((boolean) _c('errors', 'custom_layout'))
-    return html($html_file);
-  else
-    return html($html_file, null);
 }
 
 // Default configuration. You probably won't need to change any of this.
@@ -121,15 +90,12 @@ function configure() {
   option('views_dir', $app_directory . 'views');
   option('controllers_dir', $app_directory . 'controllers');
 
-  foreach (glob($app_directory . 'models/*.php') as $filename)
-    require_once($filename);
-
   // default layout for rendering
   layout('layout.html.php');
 
   // set correct error reporting
-  set_error_reporting();
-  set_error_handling();
+  ErrorHandler::set_error_reporting();
+  ErrorHandler::set_error_handling();
 
   if(function_exists('config_post'))
     config_post();
