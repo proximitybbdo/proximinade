@@ -306,6 +306,20 @@
     ?&gt;
   </code>
 
+  <h3>Short tags</h3>
+
+  <p>We allow short tags syntax in view templates. This does not depend on short tags setting on the server, but we compile the templates do create this behaviour.</p>
+
+  <p>Example:</p>
+
+  <code>
+    &lt;?= $var ?&gt;
+  </code>
+
+  <p>compiles to</p>
+
+  <p class="result">&lt;?php echo($var); ?&gt;</p>
+
 </section>
 
 <section>

@@ -70,7 +70,7 @@ class Compiler {
 	 * @param string $string The string to be preprocessed.
 	 * @return string Processed string.
 	 */
-	private function compile($string) {
+	public function compile($string) {
     $patterns = $this->_processors;
 
 		return preg_replace(array_keys($patterns), array_values($patterns), $string);
