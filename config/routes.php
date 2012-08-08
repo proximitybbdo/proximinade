@@ -5,7 +5,7 @@
  */
 dispatch('/:lang', 'index');
 
-dispatch_post('index_post', 'index_post');
+dispatch_post(':lang/index_post', 'index_post');
 
 dispatch(':lang/very/deep/link', 'very_deep_link');
 

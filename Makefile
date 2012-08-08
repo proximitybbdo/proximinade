@@ -7,7 +7,7 @@ test-unit:
 	phpunit --colors test/unit/*
 
 test-acceptance:
-	casperjs test/acceptance/*
+	clear; casperjs test/acceptance/*
 
 test-local-acceptance:
 	@echo 'Make sure you have a local webserver running that runs on http://localhost:3000'
