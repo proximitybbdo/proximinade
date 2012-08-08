@@ -29,11 +29,5 @@ casper.thenOpen "http://localhost:3000/nl-BE/very/deep/link", ->
   @test.assertHttpStatus 200, 'Very deep link responds'
   @test.assertTextExists 'verydeeplink', '_page() + _page(1) + _(2) should match `verydeeplink`'
 
-casper.then ->
-  @test.comment 'PRODUCTION file should cause _env to be in production'
-  @test.assertTextExist 'Env: PRODUCTION', 'We are in PRODUCTION mode'
-  @test.comment 'STAGING file should not take over PRODUCTION if PRODUCTION file exists'
-  @test.assertTextExist 'Env: PRODUCTION', 'We are in PRODUCTION mode'
-
 casper.run ->
   @test.renderResults true
