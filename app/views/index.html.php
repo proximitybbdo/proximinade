@@ -12,7 +12,7 @@
 
   <p><em>Note: Only available in a view / template.</em></p>
 
-  <p class="result"><?php echo($base_path); ?></p>
+  <p class="result"><?= $base_path ?></p>
 
   <p>If you need the base path in a controller you can use the following constant.</p>
 
