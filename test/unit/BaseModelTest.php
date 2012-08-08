@@ -1,6 +1,6 @@
 <?php
 
-include_once(dirname(__FILE__) . '/../../app/lib/proximitybbdo/base_model.php');
+include_once(dirname(__FILE__) . '/../../app/lib/proximitybbdo/model/base_model.php');
 
 class BaseModelEx extends BaseModel {
   public $prop1;

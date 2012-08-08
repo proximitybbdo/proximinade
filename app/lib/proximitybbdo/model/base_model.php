@@ -1,7 +1,5 @@
 <?php
 
-include_once(dirname(__FILE__) . '/limonade/helpers.php');
-
 class BaseModel {
   public function construct($pdata, $prefix = NULL) {
     foreach($pdata as $fieldname => $value) {
