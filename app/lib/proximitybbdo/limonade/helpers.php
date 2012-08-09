@@ -101,6 +101,6 @@ function _db_connection() {
   return Database::get_instance()->get_db();
 }
 
-function _protect_post() {
-  CSRF::verify_request();
+function _protect_post($pass = true) {
+  CSRF::verify_request($pass);
 }

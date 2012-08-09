@@ -24,9 +24,22 @@ class CSFRFTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals(true, CSRF::verify_request());
   }
 
-  public function testVerificationPOST() {
+  public function testVerificationPOSTFalse() {
     $_SERVER['REQUEST_METHOD'] = 'POST';
 
     $this->assertEquals(false, CSRF::verify_request());
+  }
+
+  public function testVerificationPOST() {
+    $_SERVER['REQUEST_METHOD'] = 'POST';
+    $_POST['csrf_token'] = CSRF::get_token();
+
+    $this->assertEquals(true, CSRF::verify_request());
+  }
+
+  public function testVerificationPOSTPass() {
+    $_SERVER['REQUEST_METHOD'] = 'POST';
+
+    $this->assertEquals(false, CSRF::verify_request(false));
   }
 }

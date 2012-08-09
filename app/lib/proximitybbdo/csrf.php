@@ -31,7 +31,7 @@ class CSRF {
     return $_SESSION['_csrf'] = !isset($_SESSION['_csrf']) ? sha1(microtime()) : $_SESSION['_csrf'];
   }
 
-  public static function verify_request() {
+  public static function verify_request($pass = true) {
     // Ignore GETS
     if($_SERVER['REQUEST_METHOD'] === 'GET') {
       return true;
@@ -43,7 +43,7 @@ class CSRF {
     }
 
     // Else
-    if(function_exists('halt')) {
+    if(function_exists('halt') && $pass) {
       halt(SERVER_ERROR, 'Protecting from CSRF since 1947.');
     } else {
       return false;
