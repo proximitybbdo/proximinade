@@ -97,6 +97,9 @@ function configure() {
   ErrorHandler::set_error_reporting();
   ErrorHandler::set_error_handling();
 
+  // Init CSRF
+  CSRF::setup();
+
   if(function_exists('config_post'))
     config_post();
 }

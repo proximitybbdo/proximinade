@@ -460,8 +460,11 @@
 
   <p>You can call webservice WSDL methods from PHP with the Zend library.</p>
   <p>You start with loading the necessary Zend class in your bootstrap.php.<br />Add the following line after <em>Zend_Loader::loadClass('Zend_Db');</em></p>
+
   <code>Zend_Loader::loadClass('Zend_Soap_Client');</code>
+
   <p>Later on you can use the following code to call a method.</p>
+
   <code>
     $c = new Zend_Soap_Client('http://www.sappipositivity.com/ws/Service.asmx?WSDL');
     <br />
@@ -469,3 +472,60 @@
   </code>
 </section>
 
+<section>
+  <h2>CSRF Protection</h2>
+
+  <p>To make sure that we don't face Cross-site-request-forgery, we have a helper function (and underlying Class) to check for csrf tokens.</p>
+
+  <p>The idea is that you provide for each form you want to have protection on a session token in a hidden input. When the POST action happens we check if the token in the form is the same a we currently have in our session object.</p>
+
+  <p>In your controller function</p>
+
+  <code>
+    function controller_function() {<br />
+    &nbsp;&nbsp;_protect_post();<br />
+    } 
+  </code>
+
+  <p>This will generate a 500 error when the POST is forged.</p>
+
+  <p>In your HTML form you provide the token.</p>
+
+  <code>
+    &lt;form action='/' method='POST'><br />
+    &nbsp;&nbsp;&lt;input type='hidden' name='csrf_token' value='&lt;?php echo($_SESSION['_csrf']); ?>' /><br />
+    &lt;/form>
+  </code>
+
+  <p>or</p>
+
+  <code>
+    &lt;form action='/' method='POST'><br />
+    &nbsp;&nbsp;&lt;input type='hidden' name='csrf_token' value='&lt;?php echo(CSRF::get_token()); ?>' /><br />
+    &lt;/form>
+  </code>
+
+  <p>The CSRF class has 3 public methods:</p>
+
+  <code>CSRF::setup();</code>
+
+  <p>Basic setup functions. Generates token and stores it in the session if it isn't already available.</p>
+
+  <code>CSRF::get_token();</code>
+
+  <p>Returns token from session.</p>
+
+  <code>CSRF::verify_request(true | false);</code>
+
+  <p>
+    Verifies the incoming request. This function call happens also in our helper function <em>_protect_post();</em>.
+    <br />
+    <ul>
+      <li>It returns <em>true</em> when your request method is GET.</li>
+      <li>It returns <em>true</em> when token check is OK.</li>
+      <li>It calls <em>halt(500)</em> which generates a server error (500).</li>
+      <li>It returns false when <em>halt()</em> isn't available.</li>
+      <li>It returns false when you call <em>_protect_post(false)</em> from your controller.</li>
+    </ul>
+  </p>
+</section>

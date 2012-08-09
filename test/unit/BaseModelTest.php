@@ -1,17 +1,18 @@
 <?php
 
-include_once(dirname(__FILE__) . '/../../app/lib/proximitybbdo/model/base_model.php');
-
-class BaseModelEx extends BaseModel {
-  public $prop1;
-  public $prop2;
-}
+include_once('helpers.php');
 
 class BaseModelTest extends PHPUnit_Framework_TestCase {
 
+  public static function setUpBeforeClass() {
+    include_once(dirname(__FILE__) . '/../../app/lib/proximitybbdo/model/base_model.php');
+  }
+
   public function testConstructParameterParsing() {
     $params = array('prop1' => 'val1', 'prop2' => 'val2');
-    $base = new BaseModelEx();
+    $base = new BaseModel();
+    $base->prop1 = null;
+    $base->prop2 = null;
     $base->construct($params);
 
     $this->assertEquals('val1', $base->prop1);
