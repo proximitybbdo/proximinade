@@ -97,6 +97,10 @@ function _h_option_select($value1, $value2) {
   echo ($value1 == $value2) ? 'selected="selected"' : '';
 }
 
-function db_connection() {
+function _db_connection() {
   return Database::get_instance()->get_db();
+}
+
+function _protect_post() {
+  CSRF::verify_request();
 }

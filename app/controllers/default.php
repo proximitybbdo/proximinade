@@ -2,6 +2,7 @@
 
 function index() {
   // halt(SERVER_ERROR, "Not good...");
+  _protect_post();
   
   return html('index.html.php');
 }
