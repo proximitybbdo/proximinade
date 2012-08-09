@@ -1,14 +1,12 @@
 <?php
 
-$root_directory = dirname(__FILE__) . '/../../';
-$lib_directory = $root_directory . 'app/lib/';
-$config_directory = $root_directory . 'config/';
-
-set_include_path(get_include_path() . PATH_SEPARATOR . $lib_directory);
-
-include_once('proximitybbdo/multilang.php');
+include_once('helpers.php');
 
 class MultiLangTest extends PHPUnit_Framework_TestCase {
+
+  public static function setUpBeforeClass() {
+    include_once('proximitybbdo/multilang.php');
+  }
 
   protected function setUp() {
     $this->lang_dir = dirname(__FILE__) . '/fixtures/locales';

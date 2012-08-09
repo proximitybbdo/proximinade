@@ -1,8 +1,6 @@
 <?php
 
 function index() {
-  // halt(SERVER_ERROR, "Not good...");
-  
   return html('index.html.php');
 }
 

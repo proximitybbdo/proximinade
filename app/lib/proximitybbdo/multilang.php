@@ -124,7 +124,6 @@ class MultiLang {
    * @return MultiLangKey
    */
   public function _t($key, $lang) {
-    echo $lang;
     return new MultiLangKey($this->langs[$lang][$key]);
   }
 
