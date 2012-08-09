@@ -24,7 +24,11 @@ class CSRF {
   }
 
   public static function setup() {
-    $_SESSION['_csrf'] = !isset($_SESSION['_csrf']) ? sha1(microtime()) : $_SESSION['_csrf'];
+    CSRF::get_token();
+  }
+
+  public static function get_token() {
+    return $_SESSION['_csrf'] = !isset($_SESSION['_csrf']) ? sha1(microtime()) : $_SESSION['_csrf'];
   }
 
   public static function verify_request() {
@@ -38,6 +42,11 @@ class CSRF {
       return true;
     }
 
-    halt(SERVER_ERROR, 'Protecting from CSRF since 1947.');
+    // Else
+    if(function_exists('halt')) {
+      halt(SERVER_ERROR, 'Protecting from CSRF since 1947.');
+    } else {
+      return false;
+    }
   }
 }

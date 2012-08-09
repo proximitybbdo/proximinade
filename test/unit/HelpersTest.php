@@ -1,16 +1,15 @@
 <?php
 
-// Set include path to include various dirs
-$lib_directory = dirname(__FILE__) . '/../../app/lib/';
-
-set_include_path(get_include_path() . PATH_SEPARATOR . $lib_directory);
-
-// include the apploader for framework setup
-include_once('limonade.php');
-include_once('proximitybbdo/apploader.php');
-include_once('proximitybbdo/limonade/helpers.php');
+include_once('helpers.php');
 
 class HelpersTest extends PHPUnit_Framework_TestCase {
+
+  public static function setUpBeforeClass() {
+    // include the apploader for framework setup
+    include_once('limonade.php');
+    include_once('proximitybbdo/apploader.php');
+    include_once('proximitybbdo/db.php');
+  }
 
   public function setUp() {
     $this->config_dir = dirname(__FILE__) . '/fixtures/';

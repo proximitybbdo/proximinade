@@ -1,11 +1,6 @@
 <h1>Welcome to Proximinade!</h1>
 <h2>Loosely based on the great <a href="http://www.limonade-php.net/">Limonade PHP</a></h2>
 
-<form action="<?php echo $base_path; ?>" method="post">
-  <!-- <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['_csrf']; ?>" /> -->
-  <input type="submit" />
-</form>
-
 <p>Enough with the babbling, let's get some coding done!</p>
 
 <section>
