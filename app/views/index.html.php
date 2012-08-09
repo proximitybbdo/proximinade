@@ -475,7 +475,7 @@
 <section>
   <h2>CSRF Protection</h2>
 
-  <p>To make sure that we don't face Cross-site-request-forgery, we have a helper function (and unlderying Class) to check for csrf tokens.</p>
+  <p>To make sure that we don't face Cross-site-request-forgery, we have a helper function (and underlying Class) to check for csrf tokens.</p>
 
   <p>The idea is that you provide for each form you want to have protection on a session token in a hidden input. When the POST action happens we check if the token in the form is the same a we currently have in our session object.</p>
 
