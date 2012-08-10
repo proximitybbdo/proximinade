@@ -4,6 +4,24 @@
 <p>Enough with the babbling, let's get some coding done!</p>
 
 <section>
+  <h2>Basic framework security</h2>
+
+  <h3>File access</h3>
+
+  <p>By default the provided <em>.htaccess</em> and <em>web.config</em> will not allow access to files with the following extension:</p>
+
+  <ul>
+    <li>php</li>
+    <li>yml</li>
+    <li>yaml</li>
+    <li>inc</li>
+  </ul>
+
+  <p>All other files are accessible as well as the <em>index.php</em> file on the root.</p>
+
+</section>
+
+<section>
   <h2>Environment</h2>
 
   <h3>Base path</h3>
@@ -176,15 +194,75 @@
   <code>
     _d('dynamic_crazy', array('/1/', '/2/', '/3/', '/4/', '/5/'), array('quick', 'brown', 'fox', 'lazy', 'dog'))
   </code>
+
   <p>will result in:</p>
+
   <p class="result">the quick brown fox jumps over the lazy dog</p>
+
   <p><strong>or</strong></p>
+
   <code>_d('dynamic_crazy', array('/1/', '/2/', '/3/', '/4/', '/5/'), 'scooby');</code>
 
   <p>will output:</p>
+
   <p class="result">the scooby scooby scooby jumps over the scooby scooby</p>
 
   <p><em>Note: the '/' are needed as the second parameter is a regular expression! And yes this means you can do crazy stuff like `'/^\s*{(\w+)}\s*=/'`</em></p>
+
+  <h3>Multilang domain</h3>
+
+  <p>Consider the following example:</p>
+
+  <code>
+    3 languages: nl-BE, fr-BE and nl-NL.<br />
+    And we want the following URL setup:
+    <ul>
+    	<li>http://domain.be/nl-BE</li>
+    	<li>http://domain.be/fr-BE</li>
+    	<li>http://domain.nl/</li>
+    </ul>
+  </code>
+
+  <p>By default, the first 2 URLs are ready for you. The last one, where we omit the language part from the URL and replace it with a different domain requires an extra setting in your <em>.htaccess</em>. This should be placed before the existing rules:</p>
+
+  <code>
+    # RewriteCond %{HTTP_HOST} ^domain\.nl$ [OR]
+    <br />
+    # RewriteCond %{HTTP_HOST} ^www\.domain\.nl$
+    <br /> <br />
+    # Test string is a valid file
+    <br />
+    # RewriteCond %{SCRIPT_FILENAME} !-f
+    <br /> <br />
+    # Test string is a valid directory
+    <br />
+    # RewriteCond %{SCRIPT_FILENAME} !-d
+    <br /> <br />
+    # RewriteRule (.*) index.php?/nl-NL/$1 [NC,L]
+  </code>
+
+  <p>and</p>
+
+  <code class='smaller'>
+    &lt;rule name="Limonade nl-NL Root" enabled="true" stopProcessing="true"><br />
+    &nbsp;&nbsp;&lt;match url="^$" ignoreCase="false" /><br />
+    &nbsp;&nbsp;&lt;conditions logicalGrouping="MatchAll"><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true" ignoreCase="false" /><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;add input="{HTTP_HOST}" pattern="^www\.domain\.nl$" /><br />
+    &nbsp;&nbsp;&lt;/conditions><br />
+    &nbsp;&nbsp;&lt;action type="Rewrite" url="index.php?uri=/nl-NL/" appendQueryString="true" /><br />
+    &lt;/rule><br />
+    <br />
+    &lt;rule name="Limonade nl-NL Main" enabled="true" stopProcessing="true"><br />
+    &nbsp;&nbsp;&lt;match url="^(.*)$" ignoreCase="false" /><br />
+    &nbsp;&nbsp;&lt;conditions logicalGrouping="MatchAll"><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;add input="{REQUEST_FILENAME}" matchType="IsDirectory" negate="true" ignoreCase="false" /><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true" ignoreCase="false" /><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;add input="{HTTP_HOST}" pattern="^www\.domain\.nl$" /><br />
+    &nbsp;&nbsp;&lt;/conditions><br />
+    &nbsp;&nbsp;&lt;action type="Rewrite" url="index.php?uri=/nl-NL/{R:1}" appendQueryString="true" /><br />
+    &lt;/rule>
+  </code>
 
 </section>
 
