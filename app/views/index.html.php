@@ -306,7 +306,7 @@
     ?&gt;
   </code>
 
-  <h3>Short tags</h3>
+  <h3>Short open tags</h3>
 
   <p>We allow short tags syntax in view templates. This does not depend on short tags setting on the server, but we compile the templates do create this behaviour.</p>
 
@@ -319,6 +319,12 @@
   <p>compiles to</p>
 
   <p class="result">&lt;?php echo($var); ?&gt;</p>
+
+  <p>NOTE: By default PHP 5.4 allows short open tags. <a href='http://php.net/manual/en/ini.core.php#ini.short-open-tag'>More info</a></p>
+
+  <p>You can disable template compilation by adding or uncommenting the following config setting.<br />Like this:</p>
+
+  <code>compile_templates: false</code>
 
 </section>
 

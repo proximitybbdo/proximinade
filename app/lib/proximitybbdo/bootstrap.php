@@ -104,4 +104,10 @@ function configure() {
 // Start session
 session_start();
 
+// LoadTimings::start();
+
 run();
+
+// LoadTimings::end();
+// LoadTimings::print_result();
+// LoadTimings::print_average();

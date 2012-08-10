@@ -43,6 +43,12 @@ errors:
   # custom_page: error.html.php # must be in the vies dir or subdir
   # custom_layout: false # false = do not use default layout, true = use default layout 
 
+
+# ============================================================================ #
+# TEMPLATE SETTINGS
+# ============================================================================ #
+# compile_templates: false # true by default
+
 # ============================================================================ #
 # TESTING
 # ============================================================================ #

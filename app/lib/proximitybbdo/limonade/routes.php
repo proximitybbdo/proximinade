@@ -35,9 +35,11 @@ function after($output) {
 }
 
 function before_render($content_or_func, $layout, $locals, $view_path) {
-  $c = new Compiler();
+  if(_c('compile_templates') !== false) {
+    $c = new Compiler();
 
-  $view_path = $c->template($view_path);
+    $view_path = $c->template($view_path);
+  }
 
   return array($content_or_func, $layout, $locals, $view_path);
 }

@@ -34,23 +34,29 @@ class Compiler {
   public function template($file, array $options = array()) {
     global $root_directory;
 
-		$cachePath = $root_directory . 'tmp/';
-		$defaults = array('path' => $cachePath);
+		$cache_path = $root_directory . 'tmp/';
+    $defaults = array('path' => $cache_path);
+
 		$options += $defaults;
 
 		$stats = stat($file);
     $dir = dirname($file);
-		$oname = basename(dirname($dir)) . '_' . basename($dir) . '_' . basename($file, '.php');
-		$template = "tpl_{$oname}_{$stats['ino']}_{$stats['mtime']}_{$stats['size']}.php";
-		$template = "{$options['path']}/{$template}";
+    $oname = basename(dirname($dir)) . '_' . basename($dir) . '_' . basename($file, '.php');
 
-		if (file_exists($template)) {
+		$template = "tpl_{$oname}_{$stats['ino']}_{$stats['mtime']}_{$stats['size']}.php";
+    $template = "{$options['path']}/{$template}";
+
+		if(file_exists($template)) {
 			return $template;
+    }
+
+    if(!file_exists($cache_path)) {
+      mkdir($cache_path, 0777);
     }
 
 		$compiled = $this->compile(file_get_contents($file));
 
-		if (is_writable($cachePath) && file_put_contents($template, $compiled) !== false) {
+		if(is_writable($cache_path) && file_put_contents($template, $compiled) !== false) {
 			foreach (glob("{$options['path']}/tpl_{$oname}_*.php") as $expired) {
 				if ($expired !== $template) {
 					unlink($expired);
