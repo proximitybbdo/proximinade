@@ -4,7 +4,7 @@
 
   RewriteEngine on
 
-  # test string is a valid files
+  # test string is a valid file
   RewriteCond %{SCRIPT_FILENAME} !-f
   # test string is a valid directory
   RewriteCond %{SCRIPT_FILENAME} !-d

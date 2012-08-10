@@ -230,7 +230,7 @@
     <br />
     # RewriteCond %{HTTP_HOST} ^www\.domain\.nl$
     <br /> <br />
-    # Test string is a valid files
+    # Test string is a valid file
     <br />
     # RewriteCond %{SCRIPT_FILENAME} !-f
     <br /> <br />
