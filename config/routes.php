@@ -4,7 +4,6 @@
  * Standard routes. Change to what you really need.
  */
 dispatch('/', 'index');
-dispatch_post('/', 'index');
 
 dispatch('/home', 'index'); // example
 

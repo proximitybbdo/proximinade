@@ -12,6 +12,7 @@
     h2{ font-size: 30px; }
     h3{ margin-bottom: 5px; font-size: 20px; }
     p,code{margin-bottom:20px; margin-top: 5px; display: block; }
+    code.smaller {font-size: 14px;}
     .result { font-style: italic; background-color: #fff; padding: 4px 6px; border: 1px solid #ddd; font-size: 15px; }
     code{background-color:#CFEDCB; padding: 4px 6px; font-size: 15px; }
     em{color:#aaa;font-style:italic;}
