@@ -33,8 +33,8 @@ class HelpersTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals('/nl-BE/some-page', _url('some-page'));
   }
 
-  public function testDBConnection() {
-    $this->assertNotNull(_db_connection());
+  public function testGetDB() {
+    $this->assertNotNull(get_db());
   }
 
   public function testUrlParts() {
