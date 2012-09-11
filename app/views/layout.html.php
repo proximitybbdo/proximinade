@@ -1,70 +1,30 @@
-<!doctype html>
-<html lang="en">
+<!doctype html>  
+<html class="no-js">
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta charset="utf-8" />
+	
+	<title>ProximityBBDOWebFramework</title>
 
-  <title>Cantaloupe - Interim Management</title>
-  <meta name="description" content="Cantaloupe - Interim Management" />
-  <meta name="author" content="Marc Plancke" />
-
-  <link rel="shortcut icon" href="<?php echo _asset('assets/img/shared/favicon.png'); ?>" />
-  <link rel="apple-touch-icon" href="<?php echo _asset('assets/img/shared/apple-touch-icon.png'); ?>" />
-
-  <link rel="stylesheet" href="<?php echo _asset('assets/css/style.css') ?>" /> 	
-  <script src="<?php echo _asset('assets/js/libs/modernizr-2.6.1.min.js'); ?>"></script>
+  <style type="text/css">
+    body{background-color:#efefef;font:18px Arial,sans-serif;text-shadow:1px 1px 1px white;width:800px;margin:0 auto;padding:40px;line-height:1.6;}
+    h1{margin-bottom:20px;}
+    h2,h3{margin:20px 0px;}
+    h2{ font-size: 30px; }
+    h3{ margin-bottom: 5px; font-size: 20px; }
+    p,code{margin-bottom:20px; margin-top: 5px; display: block; }
+    code.smaller {font-size: 14px;}
+    .result { font-style: italic; background-color: #fff; padding: 4px 6px; border: 1px solid #ddd; font-size: 15px; }
+    code{background-color:#CFEDCB; padding: 4px 6px; font-size: 15px; }
+    em{color:#aaa;font-style:italic;}
+    section{ margin: 60px 0px; }
+    a{ color: #e4002d; text-decoration: none; border-bottom: 1px solid #e4002d; }
+  </style>
 </head>
 <body>
 
-  <div class="wrapper">
-    <header>
-      <a id="logo" href="<?php echo url_for('/'); ?>">
-        <img src="<?php echo _asset('assets/img/shared/logo.png') ?>" alt="Cantaloupe Interim Management" />
-      </a>		
-      <nav>
-        <ul>
-          <li><a <?php if(_get_active('home')) echo 'class="active"'; ?>href="<?php echo url_for('home'); ?>">Home</a></li>
-          <li><a href="<?php echo url_for('services'); ?>">Services</a></li>
-          <li><a id="join" href="<?php echo url_for('services'); ?>">Join</a></li>
-        </ul>
-      </nav>
-    </header>
+  <div id="main">
+		<?php echo($content); ?>
+	</div>
 
-    <div id="intro">
-      <h1>What is Cantaloupe?</h1>
-      <p>
-        Cantaloupe is an <strong>Interim Management Consultancy,</strong> 
-        exclusively focused in HR. 
-        We offer an <strong>innovative business model</strong> along with 
-        the highest quality standards to <strong>our client companies</strong> 
-        and affiliated HR Interim Managers and Freelance Professionals.
-      </p>
-      <div id="action">
-        <a href="#" id="iamlooking">
-          <span>I am looking for</span>
-          an HR Interim Manager or Freelancer
-        </a>
-        <a href="#" id="iam">
-          <span>I am</span>
-          HR interim manager or <em>Freelancer</em>
-        </a>
-      </div>
-    </div>
-
-  </div>
-
-<footer>
-
-</footer>
-
-<!--[if (gte IE 6)&(lte IE 8)]><script src="<?php echo _asset('assets/js/libs/selectivizr.js'); ?>"></script><![endif]-->	
-
-<script>
-  var _gaq = [['_setAccount','xxxxxxxxxxxxx'], ['_trackPageview']];
-  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
-  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-  s.parentNode.insertBefore(g,s)}(document,'script'));
-</script>
-<noscript>Your browser does not support JavaScript!</noscript> 
 </body>
 </html>

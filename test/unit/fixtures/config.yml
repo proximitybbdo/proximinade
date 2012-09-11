@@ -1,0 +1,57 @@
+# ============================================================================ #
+# Proximity devphp framework config
+# ============================================================================ #
+admin:
+  login: 
+  password: 
+
+batman: nananananananana
+
+# ============================================================================ #
+# Database settings
+# ============================================================================ #
+db:
+  adapter: pdo_sqlite
+  host: 127.0.0.1
+  dbname: 'test/unit/fixtures/db.sqlite'
+
+db_STAGING:
+  adapter: mysqli
+  host: localhost
+  dbname: database
+  username: user_name
+  password: password
+
+db_PRODUCTION:
+  adapter: mysqli
+  host: localhost
+  dbname: database
+  username: user_name
+  password: password
+
+# ============================================================================ #
+# Multilang options
+# ============================================================================ #
+multilang:
+  default: nl-BE
+  # dir: assets/locales/ # from root, default is assets/locales/
+
+# ============================================================================ #
+# ERROR SETTINGS
+# ============================================================================ #
+errors:
+  # custom_page: error.html.php # must be in the vies dir or subdir
+  # custom_layout: false # false = do not use default layout, true = use default layout 
+
+# ============================================================================ #
+# TESTING
+# ============================================================================ #
+verbose: false
+
+# ============================================================================ #
+# XPORTER
+# ============================================================================ #
+# xporter:
+#   active: true
+#   base_url: 'http://dev.local'
+#   base_path: '/home'
