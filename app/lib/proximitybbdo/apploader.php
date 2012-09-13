@@ -40,11 +40,15 @@ class ProximityApp {
 
     Multilang::get_instance()->init($lang_dir);
 
-    // init Database
+    // init Database if needed
     $db_env = _c('db_' . option('env'));
   
-    if(is_null($db_env)) $db_env = _c('db');
-    
-    Database::get_instance()->init($db_env);
+    if(is_null($db_env)) {
+      $db_env = _c('db');
+    }
+
+    if(!is_null($db_env)) {
+      Database::get_instance()->init($db_env);
+    }
   }
 }

@@ -3,8 +3,28 @@
 
 <p>Enough with the babbling, let's get some coding done!</p>
 
-<section>
-  <h2>Basic framework security</h2>
+<h3>Topics</h3>
+<nav>
+  <ul>
+    <li><a href="#basic-security">Basic Security</a></li>
+    <li><a href="#environment">Environment</a></li>
+    <li><a href="#page">Page</a></li>
+    <li><a href="#multilang">MultiLang</a></li>
+    <li><a href="#routes">Routes</a></li>
+    <li><a href="#urls">Urls</a></li>
+    <li><a href="#multilang-urls">MultiLang urls</a></li>
+    <li><a href="#templates">Templates</a></li>
+    <li><a href="#configuration">Configuration</a></li>
+    <li><a href="#database">Database</a></li>
+    <li><a href="#errors-logging-debugging">Errors / logging / debugging</a></li>
+    <li><a href="#html-helpers">HTML helpers</a></li>
+    <li><a href="#base-data-model">Base data model</a></li>
+    <li><a href="#csrf">CSRF Protection</a></li>
+  </ul>
+</nav>
+
+<section id="basic-security">
+  <h2>Basic Framework Security</h2>
 
   <h3>File access</h3>
 
@@ -21,7 +41,7 @@
 
 </section>
 
-<section>
+<section id="environment">
   <h2>Environment</h2>
 
   <h3>Base path</h3>
@@ -30,7 +50,7 @@
 
   <p><em>Note: Only available in a view / template.</em></p>
 
-  <p class="result"><?php echo($base_path); ?></p>
+  <p class="result"><?= $base_path ?></p>
 
   <p>If you need the base path in a controller you can use the following constant.</p>
 
@@ -66,7 +86,7 @@
   <p>If no file is found, 'DEVELOPMENT' will be the default environment</p>
 </section>
 
-<section>
+<section id="page">
   <h2>Page<a name="page"></a></h2>
 
   <h3>How to get your current page?</h3>
@@ -98,7 +118,7 @@
   <p class="result"><?php echo(_get_active('home', 0)); ?></p>
 </section>
 
-<section>
+<section id="multilang">
   <h2>MultiLang</h2>
 
   <h3>The current language can be fetched through<br>
@@ -266,13 +286,13 @@
 
 </section>
 
-<section>
+<section id="routes">
   <h2>Routes</h2>
 
   <p>All relevant info can be read here: <a href='https://github.com/sofadesign/limonade/blob/master/README.mkd#routes'>https://github.com/sofadesign/limonade/blob/master/README.mkd#routes</a></p>
 </section>
 
-<section>
+<section id="urls">
   <h2>URLS</h2>
 
   <h3>Generate an URL</h3>
@@ -297,7 +317,7 @@
 
 </section>
 
-<section>
+<section id="multilang-urls">
   <h2>MultiLang URLS</h2>
 
   <h3>The framework is multilang out-of-the-box</h3>
@@ -318,7 +338,7 @@
 
 </section>
 
-<section>
+<section id="templates">
   <h2>Templates</h2>
 
   <p>We use the <strong>`.html.php`</strong> extension so we can leverage the code highlighting of your IDE / editor.</p>
@@ -384,25 +404,102 @@
     ?&gt;
   </code>
 
+  <h3>Short open tags</h3>
+
+  <p>We allow short tags syntax in view templates. This does not depend on short tags setting on the server, but we compile the templates do create this behaviour.</p>
+
+  <p>Example:</p>
+
+  <code>
+    &lt;?= $var ?&gt;
+  </code>
+
+  <p>compiles to</p>
+
+  <p class="result">&lt;?php echo($var); ?&gt;</p>
+
+  <p>NOTE: By default PHP 5.4 allows short open tags. <a href='http://php.net/manual/en/ini.core.php#ini.short-open-tag'>More info</a></p>
+
+  <p>You can disable template compilation by adding or uncommenting the following config setting.<br />Like this:</p>
+
+  <code>compile_templates: false</code>
+
 </section>
 
-<section>
+<section id="configuration">
   <h2>Configuration</h2>
 
   <h3>Configuration from ./config/config.yml</h3>
 
   <p>The config.yml file is a configuration file. You have 2 ways to fetch values from the file.</p>
 
-  <code>ProximityApp::$settings['db']['adapter'];</code>
+  <code>ProximityApp::$settings['multilang']['default'];</code>
   <p>and</p>
-  <code>_c('db', 'adapter');</code>
+  <code>_c('multilang', 'default');</code>
 
   <p>Both give you: </p>
 
-  <p class="result"><?php echo(_c('db', 'adapter')); ?></p>
+  <p class="result"><?php echo(_c('multilang', 'default')); ?></p>
 </section>
 
-<section>
+<section id="database">
+
+  <h2>Database</h2>
+
+  <p>
+    Built on the Zend framework Db packages, the Proximinade framework is
+    ready and set for database action. It is setup for multi-environment database 
+    connections which make deploying easier. 
+  </p>
+
+  <p>
+    To initiate the database setup and prepare a ready-to-use Zend Db adapter, 
+    you have to uncomment the relevant lines under the 'Database' section in the
+    `<strong>config.yml</strong>` file. You have seperate entries for 'PRODUCTION', 'STAGING' and 'DEVELOPMENT' environments.<br />'DEVELOPMENT' maps to the default 'db' set.
+  </p>
+
+  <p>
+    <em>
+      To find out more about the different environments, see 
+      the <a href="#environment">environment section</a>
+    </em>
+  </p>
+
+  <code>
+    db:<br />
+    &nbsp;&nbsp;adapter: pdo_mysql<br />
+    &nbsp;&nbsp;host: localhost<br />
+    &nbsp;&nbsp;dbname: database<br />
+    &nbsp;&nbsp;username: user_name<br />
+    &nbsp;&nbsp;password: password<br />
+  </code>
+
+  <p>
+    Next, you need to uncomment the relevent Zend module loading line inside the 
+    `config/bootstrap.php` file:
+  </p>
+
+  <code>
+    Zend_Loader::loadClass('Zend_Db');
+  </code>
+
+  <p>
+    Now the database class will setup a database adapter for you to use. You 
+    can obtain the parameter with the following helper function:
+  </p> 
+
+  <code>
+    get_db();
+  </code>
+
+  <p>
+    The adapter that is returned is a Zend Db adapter. For further information 
+    about how to run queries, see the <a href="http://framework.zend.com/manual/1.12/en/zend.db.adapter.html">Zend Db Adapter documentation</a>.
+  </p>
+
+</section>
+
+<section id="errors-logging-debugging">
   <h2>Errors / Logging / Debugging</h2>
 
   <h3>Errors</h3>
@@ -440,7 +537,7 @@
 
 </section>
 
-<section>
+<section id="html-helpers">
   <h2>HTML Helpers</h2>
 
   <p>Created for your convenience!</p>
@@ -464,7 +561,7 @@
   </code>
 </section>
 
-<section>
+<section id="base-data-model">
   <h2>Base Data Model</h2>
 
   <p>The BaseModel class can be used to inherit your model classes from.</p>
@@ -550,7 +647,7 @@
   </code>
 </section>
 
-<section>
+<section id="csrf">
   <h2>CSRF Protection</h2>
 
   <p>To make sure that we don't face Cross-site-request-forgery, we have a helper function (and underlying Class) to check for csrf tokens.</p>

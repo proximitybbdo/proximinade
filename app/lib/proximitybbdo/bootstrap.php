@@ -75,6 +75,9 @@ function configure() {
   if(function_exists('config'))
     config();
 
+  option('env', get_env());
+  option('base_uri', BASE_PATH);
+
   // Init our skeleton app.
   ProximityApp::init($config_directory);
 
@@ -83,9 +86,6 @@ function configure() {
     foreach(ProximityApp::$settings['env'] as $state)
       option('ENV_' . $state, $state);
   }
-
-  option('env', get_env());
-  option('base_uri', BASE_PATH);
 
   option('views_dir', $app_directory . 'views');
   option('controllers_dir', $app_directory . 'controllers');
@@ -107,4 +107,10 @@ function configure() {
 // Start session
 session_start();
 
+// LoadTimings::start();
+
 run();
+
+// LoadTimings::end();
+// LoadTimings::print_result();
+// LoadTimings::print_average();

@@ -43,8 +43,9 @@ function _log($msg) {
   $out .= 'console.log(' . json_encode($msg) . '); }';
   $out .= "\n//]]></script>";
 
-  if(_c('verbose')) 
+  if(_c('verbose')) {
     echo($out);
+  }
 }
 
 // Splits the url into parts.
@@ -97,7 +98,7 @@ function _h_option_select($value1, $value2) {
   echo ($value1 == $value2) ? 'selected="selected"' : '';
 }
 
-function _db_connection() {
+function get_db() {
   return Database::get_instance()->get_db();
 }
 

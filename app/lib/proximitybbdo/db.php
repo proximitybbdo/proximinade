@@ -1,6 +1,7 @@
 <?php
 
 require_once('Zend/Loader.php');
+
 Zend_Loader::loadClass('Zend_Db');
 
 class Database {
