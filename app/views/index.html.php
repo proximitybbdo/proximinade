@@ -6,7 +6,7 @@
 <h3>Topics</h3>
 <nav>
   <ul>
-    <li><a href="#basic-security">Basic security</a></li>
+    <li><a href="#basic-security">Basic Security</a></li>
     <li><a href="#environment">Environment</a></li>
     <li><a href="#page">Page</a></li>
     <li><a href="#multilang">MultiLang</a></li>
@@ -19,12 +19,12 @@
     <li><a href="#errors-logging-debugging">Errors / logging / debugging</a></li>
     <li><a href="#html-helpers">HTML helpers</a></li>
     <li><a href="#base-data-model">Base data model</a></li>
-    <li><a href="#csrf">CSRF protection</a></li>
+    <li><a href="#csrf">CSRF Protection</a></li>
   </ul>
 </nav>
 
 <section id="basic-security">
-  <h2>Basic framework security</h2>
+  <h2>Basic Framework Security</h2>
 
   <h3>File access</h3>
 
