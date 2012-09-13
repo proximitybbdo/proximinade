@@ -53,8 +53,7 @@ function _xporter_listing() {
 
 dispatch('/xporter-listr', '_xporter_listing');
 
-class Exporter
-{
+class Exporter {
   private $path_prefix_base = './';
   private $export_dir = 'export';
   private $ignore_dirs = array('assets', 'locales', 'export');
@@ -78,8 +77,9 @@ class Exporter
 
         mkdir($export_path, 0777, TRUE);
 
-        for($i = 0; $i < $dir_depth; $i++)
+        for($i = 0; $i < $dir_depth; $i++) {
           $path_prefix .= '../';
+        }
       }
 
       $cached = $this->clean_cached($path_prefix, $output);

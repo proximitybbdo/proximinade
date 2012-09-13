@@ -28,17 +28,19 @@ class ErrorHandler {
     set('code', $errno);
     set('errors', http_response_status_code($errno));
     
-    if(_c('errors', 'custom_page'))
+    if(_c('errors', 'custom_page')) {
       $html_file = (string) _c('errors', 'custom_page');
-    else
+    } else {
       $html_file = '../lib/proximitybbdo/views/errors.html.php';
+    }
 
     ErrorHandler::_log_to_google_docs($errno, $errstr, $errfile, $errline);
 
-    if((boolean) _c('errors', 'custom_layout'))
+    if((boolean) _c('errors', 'custom_layout')) {
       return html($html_file);
-    else
+    } else {
       return html($html_file, null);
+    }
   }
 
   protected static function _log_to_google_docs($errno, $errstr, $errfile, $errline) {
