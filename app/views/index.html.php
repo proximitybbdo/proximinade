@@ -6,7 +6,7 @@
 <h3>Topics</h3>
 <nav>
   <ul>
-    <li><a href="#basic-security">Basic security</a></li>
+    <li><a href="#basic-security">Basic Security</a></li>
     <li><a href="#environment">Environment</a></li>
     <li><a href="#page">Page</a></li>
     <li><a href="#multilang">MultiLang</a></li>
@@ -19,12 +19,12 @@
     <li><a href="#errors-logging-debugging">Errors / logging / debugging</a></li>
     <li><a href="#html-helpers">HTML helpers</a></li>
     <li><a href="#base-data-model">Base data model</a></li>
-    <li><a href="#csrf">CSRF protection</a></li>
+    <li><a href="#csrf">CSRF Protection</a></li>
   </ul>
 </nav>
 
 <section id="basic-security">
-  <h2>Basic framework security</h2>
+  <h2>Basic Framework Security</h2>
 
   <h3>File access</h3>
 
@@ -50,7 +50,7 @@
 
   <p><em>Note: Only available in a view / template.</em></p>
 
-  <p class="result"><?php echo($base_path); ?></p>
+  <p class="result"><?= $base_path ?></p>
 
   <p>If you need the base path in a controller you can use the following constant.</p>
 
@@ -403,6 +403,26 @@
     &nbsp;&nbsp;echo $value;<br />
     ?&gt;
   </code>
+
+  <h3>Short open tags</h3>
+
+  <p>We allow short tags syntax in view templates. This does not depend on short tags setting on the server, but we compile the templates do create this behaviour.</p>
+
+  <p>Example:</p>
+
+  <code>
+    &lt;?= $var ?&gt;
+  </code>
+
+  <p>compiles to</p>
+
+  <p class="result">&lt;?php echo($var); ?&gt;</p>
+
+  <p>NOTE: By default PHP 5.4 allows short open tags. <a href='http://php.net/manual/en/ini.core.php#ini.short-open-tag'>More info</a></p>
+
+  <p>You can disable template compilation by adding or uncommenting the following config setting.<br />Like this:</p>
+
+  <code>compile_templates: false</code>
 
 </section>
 

@@ -43,8 +43,9 @@ function _log($msg) {
   $out .= 'console.log(' . json_encode($msg) . '); }';
   $out .= "\n//]]></script>";
 
-  if(_c('verbose')) 
+  if(_c('verbose')) {
     echo($out);
+  }
 }
 
 // Splits the url into parts.

@@ -43,7 +43,9 @@ class ProximityApp {
     // init Database if needed
     $db_env = _c('db_' . option('env'));
   
-    if(is_null($db_env)) $db_env = _c('db');
+    if(is_null($db_env)) {
+      $db_env = _c('db');
+    }
 
     if(!is_null($db_env)) {
       Database::get_instance()->init($db_env);
