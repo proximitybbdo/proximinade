@@ -75,6 +75,9 @@ function configure() {
   if(function_exists('config'))
     config();
 
+  option('env', get_env());
+  option('base_uri', BASE_PATH);
+
   // Init our skeleton app.
   ProximityApp::init($config_directory);
 
@@ -83,9 +86,6 @@ function configure() {
     foreach(ProximityApp::$settings['env'] as $state)
       option('ENV_' . $state, $state);
   }
-
-  option('env', get_env());
-  option('base_uri', BASE_PATH);
 
   option('views_dir', $app_directory . 'views');
   option('controllers_dir', $app_directory . 'controllers');
@@ -96,6 +96,9 @@ function configure() {
   // set correct error reporting
   ErrorHandler::set_error_reporting();
   ErrorHandler::set_error_handling();
+
+  // Init CSRF
+  CSRF::setup();
 
   if(function_exists('config_post'))
     config_post();

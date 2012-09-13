@@ -3,7 +3,8 @@
 /**
  * You can place all the Zend libraries here, you want to be loaded.
  */
-Zend_Loader::loadClass('Zend_Db');
+
+// Zend_Loader::loadClass('Zend_Db');
 
 // Zend_Loader::loadClass('Zend_Soap_Client');
 

@@ -3,7 +3,45 @@
 
 <p>Enough with the babbling, let's get some coding done!</p>
 
-<section>
+<h3>Topics</h3>
+<nav>
+  <ul>
+    <li><a href="#basic-security">Basic security</a></li>
+    <li><a href="#environment">Environment</a></li>
+    <li><a href="#page">Page</a></li>
+    <li><a href="#multilang">MultiLang</a></li>
+    <li><a href="#routes">Routes</a></li>
+    <li><a href="#urls">Urls</a></li>
+    <li><a href="#multilang-urls">MultiLang urls</a></li>
+    <li><a href="#templates">Templates</a></li>
+    <li><a href="#configuration">Configuration</a></li>
+    <li><a href="#database">Database</a></li>
+    <li><a href="#errors-logging-debugging">Errors / logging / debugging</a></li>
+    <li><a href="#html-helpers">HTML helpers</a></li>
+    <li><a href="#base-data-model">Base data model</a></li>
+    <li><a href="#csrf">CSRF protection</a></li>
+  </ul>
+</nav>
+
+<section id="basic-security">
+  <h2>Basic framework security</h2>
+
+  <h3>File access</h3>
+
+  <p>By default the provided <em>.htaccess</em> and <em>web.config</em> will not allow access to files with the following extension:</p>
+
+  <ul>
+    <li>php</li>
+    <li>yml</li>
+    <li>yaml</li>
+    <li>inc</li>
+  </ul>
+
+  <p>All other files are accessible as well as the <em>index.php</em> file on the root.</p>
+
+</section>
+
+<section id="environment">
   <h2>Environment</h2>
 
   <h3>Base path</h3>
@@ -48,7 +86,7 @@
   <p>If no file is found, 'DEVELOPMENT' will be the default environment</p>
 </section>
 
-<section>
+<section id="page">
   <h2>Page<a name="page"></a></h2>
 
   <h3>How to get your current page?</h3>
@@ -80,7 +118,7 @@
   <p class="result"><?php echo(_get_active('home', 0)); ?></p>
 </section>
 
-<section>
+<section id="multilang">
   <h2>MultiLang</h2>
 
   <h3>The current language can be fetched through<br>
@@ -176,25 +214,85 @@
   <code>
     _d('dynamic_crazy', array('/1/', '/2/', '/3/', '/4/', '/5/'), array('quick', 'brown', 'fox', 'lazy', 'dog'))
   </code>
+
   <p>will result in:</p>
+
   <p class="result">the quick brown fox jumps over the lazy dog</p>
+
   <p><strong>or</strong></p>
+
   <code>_d('dynamic_crazy', array('/1/', '/2/', '/3/', '/4/', '/5/'), 'scooby');</code>
 
   <p>will output:</p>
+
   <p class="result">the scooby scooby scooby jumps over the scooby scooby</p>
 
   <p><em>Note: the '/' are needed as the second parameter is a regular expression! And yes this means you can do crazy stuff like `'/^\s*{(\w+)}\s*=/'`</em></p>
 
+  <h3>Multilang domain</h3>
+
+  <p>Consider the following example:</p>
+
+  <code>
+    3 languages: nl-BE, fr-BE and nl-NL.<br />
+    And we want the following URL setup:
+    <ul>
+    	<li>http://domain.be/nl-BE</li>
+    	<li>http://domain.be/fr-BE</li>
+    	<li>http://domain.nl/</li>
+    </ul>
+  </code>
+
+  <p>By default, the first 2 URLs are ready for you. The last one, where we omit the language part from the URL and replace it with a different domain requires an extra setting in your <em>.htaccess</em>. This should be placed before the existing rules:</p>
+
+  <code>
+    # RewriteCond %{HTTP_HOST} ^domain\.nl$ [OR]
+    <br />
+    # RewriteCond %{HTTP_HOST} ^www\.domain\.nl$
+    <br /> <br />
+    # Test string is a valid file
+    <br />
+    # RewriteCond %{SCRIPT_FILENAME} !-f
+    <br /> <br />
+    # Test string is a valid directory
+    <br />
+    # RewriteCond %{SCRIPT_FILENAME} !-d
+    <br /> <br />
+    # RewriteRule (.*) index.php?/nl-NL/$1 [NC,L]
+  </code>
+
+  <p>and</p>
+
+  <code class='smaller'>
+    &lt;rule name="Limonade nl-NL Root" enabled="true" stopProcessing="true"><br />
+    &nbsp;&nbsp;&lt;match url="^$" ignoreCase="false" /><br />
+    &nbsp;&nbsp;&lt;conditions logicalGrouping="MatchAll"><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true" ignoreCase="false" /><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;add input="{HTTP_HOST}" pattern="^www\.domain\.nl$" /><br />
+    &nbsp;&nbsp;&lt;/conditions><br />
+    &nbsp;&nbsp;&lt;action type="Rewrite" url="index.php?uri=/nl-NL/" appendQueryString="true" /><br />
+    &lt;/rule><br />
+    <br />
+    &lt;rule name="Limonade nl-NL Main" enabled="true" stopProcessing="true"><br />
+    &nbsp;&nbsp;&lt;match url="^(.*)$" ignoreCase="false" /><br />
+    &nbsp;&nbsp;&lt;conditions logicalGrouping="MatchAll"><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;add input="{REQUEST_FILENAME}" matchType="IsDirectory" negate="true" ignoreCase="false" /><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true" ignoreCase="false" /><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;add input="{HTTP_HOST}" pattern="^www\.domain\.nl$" /><br />
+    &nbsp;&nbsp;&lt;/conditions><br />
+    &nbsp;&nbsp;&lt;action type="Rewrite" url="index.php?uri=/nl-NL/{R:1}" appendQueryString="true" /><br />
+    &lt;/rule>
+  </code>
+
 </section>
 
-<section>
+<section id="routes">
   <h2>Routes</h2>
 
   <p>All relevant info can be read here: <a href='https://github.com/sofadesign/limonade/blob/master/README.mkd#routes'>https://github.com/sofadesign/limonade/blob/master/README.mkd#routes</a></p>
 </section>
 
-<section>
+<section id="urls">
   <h2>URLS</h2>
 
   <h3>Generate an URL</h3>
@@ -219,7 +317,7 @@
 
 </section>
 
-<section>
+<section id="multilang-urls">
   <h2>MultiLang URLS</h2>
 
   <h3>The framework is multilang out-of-the-box</h3>
@@ -240,7 +338,7 @@
 
 </section>
 
-<section>
+<section id="templates">
   <h2>Templates</h2>
 
   <p>We use the <strong>`.html.php`</strong> extension so we can leverage the code highlighting of your IDE / editor.</p>
@@ -328,23 +426,80 @@
 
 </section>
 
-<section>
+<section id="configuration">
   <h2>Configuration</h2>
 
   <h3>Configuration from ./config/config.yml</h3>
 
   <p>The config.yml file is a configuration file. You have 2 ways to fetch values from the file.</p>
 
-  <code>ProximityApp::$settings['db']['adapter'];</code>
+  <code>ProximityApp::$settings['multilang']['default'];</code>
   <p>and</p>
-  <code>_c('db', 'adapter');</code>
+  <code>_c('multilang', 'default');</code>
 
   <p>Both give you: </p>
 
-  <p class="result"><?php echo(_c('db', 'adapter')); ?></p>
+  <p class="result"><?php echo(_c('multilang', 'default')); ?></p>
 </section>
 
-<section>
+<section id="database">
+
+  <h2>Database</h2>
+
+  <p>
+    Built on the Zend framework Db packages, the Proximinade framework is
+    ready and set for database action. It is setup for multi-environment database 
+    connections which make deploying easier. 
+  </p>
+
+  <p>
+    To initiate the database setup and prepare a ready-to-use Zend Db adapter, 
+    you have to uncomment the relevant lines under the 'Database' section in the
+    `<strong>config.yml</strong>` file. You have seperate entries for 'PRODUCTION', 'STAGING' and 'DEVELOPMENT' environments.<br />'DEVELOPMENT' maps to the default 'db' set.
+  </p>
+
+  <p>
+    <em>
+      To find out more about the different environments, see 
+      the <a href="#environment">environment section</a>
+    </em>
+  </p>
+
+  <code>
+    db:<br />
+    &nbsp;&nbsp;adapter: pdo_mysql<br />
+    &nbsp;&nbsp;host: localhost<br />
+    &nbsp;&nbsp;dbname: database<br />
+    &nbsp;&nbsp;username: user_name<br />
+    &nbsp;&nbsp;password: password<br />
+  </code>
+
+  <p>
+    Next, you need to uncomment the relevent Zend module loading line inside the 
+    `config/bootstrap.php` file:
+  </p>
+
+  <code>
+    Zend_Loader::loadClass('Zend_Db');
+  </code>
+
+  <p>
+    Now the database class will setup a database adapter for you to use. You 
+    can obtain the parameter with the following helper function:
+  </p> 
+
+  <code>
+    get_db();
+  </code>
+
+  <p>
+    The adapter that is returned is a Zend Db adapter. For further information 
+    about how to run queries, see the <a href="http://framework.zend.com/manual/1.12/en/zend.db.adapter.html">Zend Db Adapter documentation</a>.
+  </p>
+
+</section>
+
+<section id="errors-logging-debugging">
   <h2>Errors / Logging / Debugging</h2>
 
   <h3>Errors</h3>
@@ -382,7 +537,7 @@
 
 </section>
 
-<section>
+<section id="html-helpers">
   <h2>HTML Helpers</h2>
 
   <p>Created for your convenience!</p>
@@ -406,7 +561,7 @@
   </code>
 </section>
 
-<section>
+<section id="base-data-model">
   <h2>Base Data Model</h2>
 
   <p>The BaseModel class can be used to inherit your model classes from.</p>
@@ -480,8 +635,11 @@
 
   <p>You can call webservice WSDL methods from PHP with the Zend library.</p>
   <p>You start with loading the necessary Zend class in your bootstrap.php.<br />Add the following line after <em>Zend_Loader::loadClass('Zend_Db');</em></p>
+
   <code>Zend_Loader::loadClass('Zend_Soap_Client');</code>
+
   <p>Later on you can use the following code to call a method.</p>
+
   <code>
     $c = new Zend_Soap_Client('http://www.sappipositivity.com/ws/Service.asmx?WSDL');
     <br />
@@ -489,3 +647,60 @@
   </code>
 </section>
 
+<section id="csrf">
+  <h2>CSRF Protection</h2>
+
+  <p>To make sure that we don't face Cross-site-request-forgery, we have a helper function (and underlying Class) to check for csrf tokens.</p>
+
+  <p>The idea is that you provide for each form you want to have protection on a session token in a hidden input. When the POST action happens we check if the token in the form is the same a we currently have in our session object.</p>
+
+  <p>In your controller function</p>
+
+  <code>
+    function controller_function() {<br />
+    &nbsp;&nbsp;_protect_post();<br />
+    } 
+  </code>
+
+  <p>This will generate a 500 error when the POST is forged.</p>
+
+  <p>In your HTML form you provide the token.</p>
+
+  <code>
+    &lt;form action='/' method='POST'><br />
+    &nbsp;&nbsp;&lt;input type='hidden' name='csrf_token' value='&lt;?php echo($_SESSION['_csrf']); ?>' /><br />
+    &lt;/form>
+  </code>
+
+  <p>or</p>
+
+  <code>
+    &lt;form action='/' method='POST'><br />
+    &nbsp;&nbsp;&lt;input type='hidden' name='csrf_token' value='&lt;?php echo(CSRF::get_token()); ?>' /><br />
+    &lt;/form>
+  </code>
+
+  <p>The CSRF class has 3 public methods:</p>
+
+  <code>CSRF::setup();</code>
+
+  <p>Basic setup functions. Generates token and stores it in the session if it isn't already available.</p>
+
+  <code>CSRF::get_token();</code>
+
+  <p>Returns token from session.</p>
+
+  <code>CSRF::verify_request(true | false);</code>
+
+  <p>
+    Verifies the incoming request. This function call happens also in our helper function <em>_protect_post();</em>.
+    <br />
+    <ul>
+      <li>It returns <em>true</em> when your request method is GET.</li>
+      <li>It returns <em>true</em> when token check is OK.</li>
+      <li>It calls <em>halt(500)</em> which generates a server error (500).</li>
+      <li>It returns false when <em>halt()</em> isn't available.</li>
+      <li>It returns false when you call <em>_protect_post(false)</em> from your controller.</li>
+    </ul>
+  </p>
+</section>

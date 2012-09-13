@@ -8,26 +8,26 @@ admin:
 # ============================================================================ #
 # Database settings
 # ============================================================================ #
-db:
-  adapter: pdo_mysql
-  host: localhost
-  dbname: database
-  username: user_name
-  password: password
-
-db_STAGING:
-  adapter: pdo_mysql
-  host: localhost
-  dbname: database
-  username: user_name
-  password: password
-
-db_PRODUCTION:
-  adapter: pdo_mysql
-  host: localhost
-  dbname: database
-  username: user_name
-  password: password
+# db:
+#   adapter: pdo_mysql
+#   host: localhost
+#   dbname: database
+#   username: user_name
+#   password: password
+# 
+# db_STAGING:
+#   adapter: pdo_mysql
+#   host: localhost
+#   dbname: database
+#   username: user_name
+#   password: password
+# 
+# db_PRODUCTION:
+#   adapter: pdo_mysql
+#   host: localhost
+#   dbname: database
+#   username: user_name
+#   password: password
 
 # ============================================================================ #
 # Multilang options
