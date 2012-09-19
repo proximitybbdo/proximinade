@@ -16,12 +16,14 @@ require_once('limonade.php');
 date_default_timezone_set('Europe/Brussels');
 
 // Load all Proximity BBDO libraries.
-foreach (glob($lib_directory . 'proximitybbdo/*.php', GLOB_NOSORT) as $filename)
+foreach (glob($lib_directory . 'proximitybbdo/*.php', GLOB_NOSORT) as $filename) {
   require_once($filename);
+}
 
 // Load all sub lib files.
-foreach (glob($lib_directory . 'proximitybbdo/[!(vi)]*/*.php', GLOB_NOSORT) as $filename)
+foreach (glob($lib_directory . 'proximitybbdo/[!(vi)]*/*.php', GLOB_NOSORT) as $filename) {
   require_once($filename);
+}
 
 /**
  * Include Zend Loader class.
@@ -32,15 +34,15 @@ require_once('Zend/Loader.php');
 /**
  * basic config files needed to boot the application.
  */
-require_once('bootstrap.php');
 require_once('helpers.php');
 require_once('routes.php');
 
 /**
  * Load all models
  */
-foreach (glob($app_directory . 'models/*.php', GLOB_NOSORT) as $filename)
+foreach (glob($app_directory . 'models/*.php', GLOB_NOSORT) as $filename) {
   require_once($filename);
+}
 
 /**
  * Get environment settings based on root files.
@@ -52,12 +54,14 @@ function get_env() {
   $files = array();
   $envs = array('PRODUCTION', 'STAGING', 'DEVELOPMENT'); // priority order
 
-  foreach(glob($root_directory . '*', GLOB_NOSORT) as $file)
+  foreach(glob($root_directory . '*', GLOB_NOSORT) as $file) {
     array_push($files, basename($file));
+  }
 
   foreach($envs as $state) {
-    if(in_array($state, $files))
+    if(in_array($state, $files)) {
       return $state;
+    }
   }
 
   return $env;
@@ -72,8 +76,9 @@ function configure() {
 
   define('BASE_PATH', str_replace('\\', '', $script_dir . ($script_dir === '/' ? '' : '/' )));
 
-  if(function_exists('config'))
+  if(function_exists('config')) {
     config();
+  }
 
   option('env', get_env());
   option('base_uri', BASE_PATH);
@@ -81,17 +86,11 @@ function configure() {
   // Init our skeleton app.
   ProximityApp::init($config_directory);
 
-  // Environment variable. You could use this to take different actions when on production or development environment.
-  if(array_key_exists('env', ProximityApp::$settings)) {
-    foreach(ProximityApp::$settings['env'] as $state)
-      option('ENV_' . $state, $state);
-  }
-
   option('views_dir', $app_directory . 'views');
   option('controllers_dir', $app_directory . 'controllers');
 
   // default layout for rendering
-  layout('layout.html.php');
+  layout(_c('templates', 'layout'));
 
   // set correct error reporting
   ErrorHandler::set_error_reporting();
@@ -100,8 +99,9 @@ function configure() {
   // Init CSRF
   CSRF::setup();
 
-  if(function_exists('config_post'))
+  if(function_exists('config_post')) {
     config_post();
+  }
 }
 
 // Start session
@@ -109,6 +109,7 @@ session_start();
 
 // LoadTimings::start();
 
+// Limonade run
 run();
 
 // LoadTimings::end();

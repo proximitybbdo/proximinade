@@ -20,10 +20,11 @@ function _c() {
   $result = ProximityApp::$settings;
 
   for($i = 0; $i < func_num_args(); $i++) {
-    if(isset($result[func_get_arg($i)]))
+    if(isset($result[func_get_arg($i)])) {
       $result = $result[func_get_arg($i)];
-    else
+    } else {
       return NULL;
+    }
   }
 
   return $result;
@@ -61,20 +62,23 @@ function _page($id = 0) {
   $parts = _url_parts();
 
   // if first part is a lang (we match it with the lang array from MultiLang)
-  if(count($parts) > 0 && preg_match(Multilang::get_instance()->langs_as_regexp(), $parts[0]))
+  if(count($parts) > 0 && preg_match(Multilang::get_instance()->langs_as_regexp(), $parts[0])) {
     array_shift($parts);
+  }
 
   // if the given index is found in the url
-  if(count($parts) > 0 && $id < count($parts))
+  if(count($parts) > 0 && $id < count($parts)) {
     return $parts[$id];
+  }
 
   return '';
 }
 
 // Returns **active** when the ``$page_name`` argument combined with the given ``$id`` resembles the page.
 function _get_active($page_name, $id = 0) {
-  if(_page($id) == $page_name)
+  if(_page($id) == $page_name) {
     return 'active';
+  }
   
   return '';
 }

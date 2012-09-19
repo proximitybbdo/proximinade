@@ -17,8 +17,9 @@ class CSRF {
    * Returns an instance of Database
    */
   public static function get_instance() {
-    if( self::$instance == null )
+    if(self::$instance == null) {
       self::$instance = new CSRF();
+    }
 
     return self::$instance;
   }

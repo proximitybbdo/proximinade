@@ -24,8 +24,9 @@ class Database {
    * Returns an instance of Database
    */
   public static function get_instance() {
-    if( self::$instance == null )
+    if(self::$instance == null) {
       self::$instance = new Database();
+    }
 
     return self::$instance;
   }

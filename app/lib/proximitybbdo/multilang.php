@@ -32,8 +32,9 @@ class MultiLang {
    * Returns an instance of MultiLang
    */
   public static function get_instance() {
-    if( self::$instance == null )
+    if(self::$instance == null) {
       self::$instance = new MultiLang();
+    }
 
     return self::$instance;
   }
@@ -57,10 +58,11 @@ class MultiLang {
     $iso_langs['en'] = 'en-UK';
     $iso_langs['pt'] = 'pt-PT';
     
-    if(array_key_exists($lang, $iso_langs) && strlen($iso_langs[$lang]) > 0)
+    if(array_key_exists($lang, $iso_langs) && strlen($iso_langs[$lang]) > 0) {
       return $iso_langs[$lang]; 
-    else
+    } else {
       return $lang;
+    }
   }
 
   /**
@@ -68,15 +70,20 @@ class MultiLang {
    */
   public function set_time_locale() { 
     switch($this->lang) { 
-    case "nl-BE": 
-      $l = setlocale(LC_TIME, "dutch-belgian", "nlb", "nlb-nlb", "nld-nld", "nl_NL");  
-      break; 
-    case "fr-BE": 
-      $l = setlocale(LC_TIME, "french-belgian", "frb", "frb-frb", "fr_BE", "br_FR");  
-      break; 
-    default:  
-      $l = setlocale(LC_TIME, ""); 
-      break; 
+      case "nl-BE": 
+        $l = setlocale(LC_TIME, "dutch-belgian", "nlb", "nlb-nlb", "nld-nld", "nl_NL");  
+
+        break; 
+
+      case "fr-BE": 
+        $l = setlocale(LC_TIME, "french-belgian", "frb", "frb-frb", "fr_BE", "br_FR");  
+
+        break; 
+
+      default:  
+        $l = setlocale(LC_TIME, ""); 
+
+        break; 
     } 
   }
 
@@ -85,7 +92,9 @@ class MultiLang {
    */
   public function destroy() {
     unset($this->langs);
+
     $this->langs = array();
+
     return TRUE;
   }
 
@@ -151,8 +160,9 @@ class MultiLang {
   public function langs_as_regexp() {
     $lang_names = array();
 
-    foreach ($this->langs as $key => $value) 
+    foreach ($this->langs as $key => $value)  {
       array_push($lang_names, $key);
+    }
     
     return "/" . implode('|', $lang_names) . "/";
   }
@@ -173,15 +183,17 @@ class MultiLangKey extends ArrayObject {
   function __construct($data) {
     $this->_data = $data;
 
-    if(is_array($this->_data))
+    if(is_array($this->_data)) {
       parent::__construct($this->_data, ArrayObject::ARRAY_AS_PROPS);
+    }
   }
 
   public function __call($name, array $arguments) {
-    if($name == '_t' || $name == 't')
+    if($name == '_t' || $name == 't') {
       return call_user_func_array(array($this, '__t'), $arguments);
-    else if($name == '_d' || $name == 'd')
+    } else if($name == '_d' || $name == 'd') {
       return call_user_func_array(array($this, '__d'), $arguments);
+    }
   }
 
   private function __t($key) {
