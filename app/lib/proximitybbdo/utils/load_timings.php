@@ -17,8 +17,9 @@ class LoadTimings {
    * Returns an instance of LoadTimings
    */
   public static function get_instance() {
-    if( self::$instance == null )
+    if(self::$instance == null) {
       self::$instance = new LoadTimings();
+    }
 
     return self::$instance;
   }
