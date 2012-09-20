@@ -44,6 +44,12 @@ foreach (glob($app_directory . 'models/*.php', GLOB_NOSORT) as $filename) {
   require_once($filename);
 }
 
+// set correct error reporting
+ErrorHandler::set_error_reporting();
+ErrorHandler::set_error_handling();
+
+register_shutdown_function('ErrorHandler::set_shutdown_handling');
+
 /**
  * Get environment settings based on root files.
  */
@@ -91,10 +97,6 @@ function configure() {
 
   // default layout for rendering
   layout(_c('templates', 'layout'));
-
-  // set correct error reporting
-  ErrorHandler::set_error_reporting();
-  ErrorHandler::set_error_handling();
 
   // Init CSRF
   CSRF::setup();
