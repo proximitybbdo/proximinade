@@ -52,7 +52,7 @@ class ProximityApp {
     // init Multilang
     $lang_dir = dirname(__FILE__) . '/../../../' . ProximityApp::$settings['multilang']['dir'];
 
-    Multilang::get_instance()->init($lang_dir);
+    Multilang::get_instance()->init($lang_dir, ProximityApp::$settings['multilang']['default']);
 
     // init Database if needed
     $db_env = _c('db_' . option('env'));
