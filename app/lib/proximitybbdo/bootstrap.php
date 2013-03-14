@@ -34,6 +34,7 @@ require_once('Zend/Loader.php');
 /**
  * basic config files needed to boot the application.
  */
+require_once('bootstrap.php');
 require_once('helpers.php');
 require_once('routes.php');
 
